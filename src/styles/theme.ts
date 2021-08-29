@@ -34,13 +34,13 @@ const theme: any = {
     }
   },
   colors: {
-    primary: '#FBAE16',
-    secondary: '#F19020',
-    blue: '#127CCB',
+    primary: '#EE5253',
+    secondary: '#FF6B6B',
+    blue: '#54A0FF',
     white: '#FFFFFF',
-    black: '#000000',
-    gray: '#5f6368',
-    darkGray: '#3c4043',
+    black: '#222F3E',
+    gray: '#C8D6E5',
+    darkGray: '#8395A7',
     muted: '#E8EFF5'
   },
   spaces: {
