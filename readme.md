@@ -1,19 +1,8 @@
-## Next Boilerplate
+## Canada Work Permit Process Time
 
-## Main Libraries
-- React
-- Typescript
-- Testing library
-- Jest
-- Next 10.x.x
-- Styled Components 5.x.x
-- Prettier
-- Server Side Rendering (SSR)
-- SWR
-- react i18next
-- Storybook
-
-## Contributing
+<p align="center">
+  <img width="600px" height="auto" src="./canada_flag.svg" alt="Canada flag" />
+</p>
 
 ### 01. Install dependencies
 
