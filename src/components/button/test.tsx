@@ -1,11 +1,6 @@
-// Packages
-import React from 'react'
 import { fireEvent, cleanup } from '@testing-library/react'
-
-// Helpers
 import { renderWithTheme } from 'helpers/testing-library'
 
-// Components
 import Button from '.'
 
 afterEach(cleanup)

@@ -1,19 +1,15 @@
-// Packages
-import React from 'react'
-
-// Styles
 import * as S from './styles'
 
 type Props = {
-  children: React.ReactNode
-  rounded?: boolean
-  circle?: boolean
-  primary?: boolean
-  secondary?: boolean
-  skyBlue?: boolean
-  onClick: () => void
-  type?: string
-  disabled?: boolean
+  children: React.ReactNode;
+  rounded?: boolean;
+  circle?: boolean;
+  primary?: boolean;
+  secondary?: boolean;
+  skyBlue?: boolean;
+  onClick: () => void;
+  type?: 'button' | 'submit';
+  disabled?: boolean;
 }
 
 const Button: React.FC<Props> = ({
@@ -24,6 +20,7 @@ const Button: React.FC<Props> = ({
   secondary,
   skyBlue,
   disabled = false,
+  type = 'button',
   onClick
 }) => (
   <S.ButtonWrapper
@@ -34,7 +31,7 @@ const Button: React.FC<Props> = ({
     skyBlue={skyBlue}
     onClick={onClick}
     data-testid="button"
-    type="button"
+    type={type}
     disabled={disabled}
   >
     {children}

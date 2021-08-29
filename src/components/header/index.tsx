@@ -1,11 +1,6 @@
-// Packages
-import React from 'react'
 import { useTranslation } from 'react-i18next'
-
-// Components
 import Select from 'components/select'
 
-// Styles
 import * as S from './styles'
 
 const Header = () => {

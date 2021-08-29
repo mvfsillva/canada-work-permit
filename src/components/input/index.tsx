@@ -1,0 +1,23 @@
+import { forwardRef } from 'react'
+import * as S from './styles'
+
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+  disabled?: boolean
+  icon?: React.ReactElement
+}
+
+const Input = forwardRef(
+  (props: InputProps, ref?: React.Ref<HTMLInputElement>) => {
+    const { disabled, icon, ...restProps } = props
+    return (
+      <S.Container>
+        {Boolean(icon) && <S.Icon>{icon}</S.Icon>}
+        <S.Field {...restProps} disabled={disabled} ref={ref} />
+      </S.Container>
+    )
+  }
+)
+
+Input.displayName = 'Input'
+
+export default Input
