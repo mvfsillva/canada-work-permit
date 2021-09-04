@@ -1,34 +1,23 @@
 import * as S from './styles'
 
+export type VariantTypes = 'rounded' | 'circle' | 'primary' | 'secondary' | 'skyBlue';
 type Props = {
   children: React.ReactNode;
-  rounded?: boolean;
-  circle?: boolean;
-  primary?: boolean;
-  secondary?: boolean;
-  skyBlue?: boolean;
   onClick: () => void;
   type?: 'button' | 'submit';
   disabled?: boolean;
+  variant?: VariantTypes;
 }
 
 const Button: React.FC<Props> = ({
   children,
-  rounded,
-  circle,
-  primary,
-  secondary,
-  skyBlue,
+  variant,
   disabled = false,
   type = 'button',
   onClick
 }) => (
   <S.ButtonWrapper
-    rounded={rounded}
-    circle={circle}
-    primary={primary}
-    secondary={secondary}
-    skyBlue={skyBlue}
+    variant={variant}
     onClick={onClick}
     data-testid="button"
     type={type}
