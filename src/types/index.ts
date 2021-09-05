@@ -1,6 +1,6 @@
 export type VisaTypes = 'WP' | 'OWP' | 'GTS, OWP' | 'WP, OWP' | 'GTS, OWP, VISITOR' | 'WP, OWP, SP'
 export type CategoryTypes = 'LMIA' | 'LMIA EXEMPT' | 'GTS'
-export type StatusTypes = 'awaiting' | 'processed'
+export type StatusTypes = 'awaiting' | 'approved' | 'not approved'
 
 export interface ApplicationType {
   id: string;
