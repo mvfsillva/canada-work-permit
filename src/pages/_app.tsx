@@ -1,4 +1,3 @@
-import React from 'react'
 import Head from 'next/head'
 import { AppProps } from 'next/app'
 import { ThemeProvider } from 'styled-components'

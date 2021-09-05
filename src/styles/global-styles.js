@@ -1,20 +1,11 @@
+import React from 'react'
 import { createGlobalStyle, css } from 'styled-components'
+import tw, { GlobalStyles as BaseStyles } from 'twin.macro'
 
-const GlobalStyle = createGlobalStyle`
-  * {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    box-sizing: border-box;
-    vertical-align: baseline;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
+const CustomStyles = createGlobalStyle`
   ${({ theme }) => css`
     html {
       font-family: ${theme.font.family};
-      font-size: 62.5%;
       scroll-behavior: smooth;
     }
 
@@ -22,8 +13,16 @@ const GlobalStyle = createGlobalStyle`
       background-color: ${theme.colors.white};
       color: ${theme.colors.black};
       font-size: ${theme.font.sizes.base};
+      ${tw`antialiased`}
     }
   `}
 `
 
-export default GlobalStyle
+const GlobalStyles = () => (
+  <>
+    <BaseStyles />
+    <CustomStyles />
+  </>
+)
+
+export default GlobalStyles
