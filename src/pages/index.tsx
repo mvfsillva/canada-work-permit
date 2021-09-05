@@ -1,13 +1,12 @@
-
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import 'twin.macro'
 
-import Header from 'components/header'
-import Main from 'components/main'
+
+import { Main } from 'components'
 
 const Home = () => (
   <>
-    <Header />
     <Main />
     <ToastContainer containerId="toastify" draggable={false} />
   </>

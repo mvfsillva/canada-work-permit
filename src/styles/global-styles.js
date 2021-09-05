@@ -6,6 +6,7 @@ const CustomStyles = createGlobalStyle`
   ${({ theme }) => css`
     html {
       font-family: ${theme.font.family};
+      font-size: 14px;
       scroll-behavior: smooth;
     }
 
