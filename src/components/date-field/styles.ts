@@ -21,7 +21,7 @@ export const Overlay = styled.div`
 
 export const OverlayToolbar = styled.div`
   ${({ theme }) => css`
-    font-size: ${theme.font.sizes.small};
+    font-size: ${theme.font.sizes.base};
     display: flex;
     flex-direction: row;
     padding-left: ${theme.spaces.xsmall};
@@ -34,7 +34,7 @@ export const LibStyles = styled.div`
   ${({ theme }) => css`
     .DayPicker {
       display: inline-block;
-      font-size: ${theme.font.sizes.small};
+      font-size: ${theme.font.sizes.base};
       margin-top: 0.4rem;
     }
 
@@ -117,12 +117,12 @@ export const LibStyles = styled.div`
       margin-bottom: 0.5rem;
       padding: 0 0.5rem;
       text-align: left;
-      font-size: ${theme.font.sizes.small};
+      font-size: ${theme.font.sizes.base};
     }
 
     .DayPicker-Caption > div {
       font-weight: 500;
-      font-size: ${theme.font.sizes.small};
+      font-size: ${theme.font.sizes.base};
     }
 
     .DayPicker-Weekdays {
@@ -139,7 +139,7 @@ export const LibStyles = styled.div`
       padding: 0.5rem;
       color: ${theme.colors.gray};
       text-align: center;
-      font-size: ${theme.font.sizes.small};
+      font-size: ${theme.font.sizes.base};
     }
 
     .DayPicker-Weekday abbr[title] {
@@ -158,7 +158,7 @@ export const LibStyles = styled.div`
     .DayPicker-Day {
       display: table-cell;
       padding: 0.5rem;
-      border-radius: 50%;
+      /* border-radius: 50%; */
       vertical-align: middle;
       text-align: center;
       cursor: pointer;
@@ -172,7 +172,7 @@ export const LibStyles = styled.div`
       color: ${theme.colors.gray};
       vertical-align: middle;
       text-align: right;
-      font-size: ${theme.font.sizes.small};
+      font-size: ${theme.font.sizes.base};
       cursor: pointer;
     }
 
@@ -189,13 +189,13 @@ export const LibStyles = styled.div`
       background-color: transparent;
       background-image: none;
       box-shadow: none;
-      color: ${theme.colors.blue};
-      font-size: ${theme.font.sizes.small};
+      color: ${theme.colors.primary};
+      font-size: ${theme.font.sizes.base};
       cursor: pointer;
     }
 
     .DayPicker-Day--today {
-      color: ${theme.colors.blue};
+      color: ${theme.colors.primary};
       font-weight: 700;
     }
 
@@ -219,7 +219,7 @@ export const LibStyles = styled.div`
 
     .DayPicker:not(.DayPicker--interactionDisabled)
       .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
-      background-color: ${rgba(theme.colors.blue, 0.7)};
+      background-color: ${rgba(theme.colors.primary, 0.7)};
       color: ${theme.colors.white};
     }
 
@@ -234,12 +234,8 @@ export const LibStyles = styled.div`
 
     .Selectable
       .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
-      background-color: ${theme.colors.blue};
+      background-color: ${theme.colors.primary};
       color: ${theme.colors.white};
-    }
-
-    .Selectable .DayPicker-Day {
-      border-radius: 50%;
     }
   `}
 `

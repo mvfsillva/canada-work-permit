@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { cloneElement, useState, useEffect } from 'react'
 import { withTheme } from 'styled-components'
 import { rgba, darken } from 'polished'
 import ReactSelect, {
@@ -50,7 +50,6 @@ function Select(
     container: (styles) => ({
       ...styles,
       width: '100%',
-      fontSize: theme.font.sizes.small,
       color: theme.colors.gray
     }),
     control: (styles) => ({
@@ -58,7 +57,6 @@ function Select(
       border: 0,
       flexWrap: 'nowrap',
       borderRadius: theme.border.radius,
-      padding: theme.spaces.xxsmall,
       boxShadow: borderless ?? `0 0 0 1px ${rgba(theme.colors.muted, 1)}`,
       '&:hover': {
         boxShadow: `0 0 0 2px ${rgba(theme.colors.gray, 0.3)}`
@@ -69,7 +67,6 @@ function Select(
     }),
     dropdownIndicator: (styles) => ({
       ...styles,
-      padding: theme.spaces.tiny,
       color: theme.colors.gray,
       '&:hover': {
         color: darken(0.2, theme.colors.gray)
@@ -78,7 +75,7 @@ function Select(
     indicatorSeparator: () => ({ display: 'none' }),
     valueContainer: (styles) => ({
       ...styles,
-      paddingLeft: theme.spaces.xsmall,
+      // paddingLeft: theme.spaces.xsmall,
       color: theme.colors.gray,
       '&:hover': {
         color: darken(0.2, theme.colors.gray)
@@ -101,7 +98,6 @@ function Select(
     }),
     option: (styles, state) => ({
       ...styles,
-      fontSize: theme.font.sizes.small,
       background: 'transparent',
       cursor: 'pointer',
       color: state.isSelected ? theme.colors.secondary : theme.colors.primary,
@@ -122,7 +118,7 @@ function Select(
         <components.ValueContainer {...props}>
           {Boolean(children) &&
             Boolean(icon) &&
-            React.cloneElement(icon, {
+            cloneElement(icon, {
               style: { position: 'absolute', left: 6 }
             })}
           {children}

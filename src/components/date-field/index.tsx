@@ -2,17 +2,13 @@ import { createRef } from 'react';
 import DayPickerInput from 'react-day-picker/DayPickerInput'
 import { DateUtils } from 'react-day-picker'
 import { format as dateFnsFormat, parse as dateFnsParse } from 'date-fns'
-import { FiCalendar } from 'react-icons/fi'
-import { rgba } from 'polished'
 import { withTheme } from 'styled-components'
 
-// Components
 import Input from 'components/input'
 
-// Styles
 import * as S from './styles'
 
-interface DateFieldProps {
+type DateFieldProps = {
   name?: string
   value: Date
   disabled?: boolean
@@ -22,7 +18,7 @@ interface DateFieldProps {
   }
 }
 
-const DATE_FORMAT = 'EEE, d MMM'
+const DATE_FORMAT = 'yyyy-MM-dd'
 
 function formatDate(date: Date, format: string): string {
   return dateFnsFormat(date, format)
@@ -48,24 +44,19 @@ function DateField(props: DateFieldProps): React.ReactElement {
     name,
     readOnly: true,
     'data-testid': name,
-    icon: (
-      <FiCalendar
-        color={!Boolean(value) ? rgba(theme.colors.gray, 1) : 'inherit'}
-      />
-    )
   }
 
   const dayPickerProps = {
     className: 'Selectable',
-    numberOfMonths: 2,
+    numberOfMonths: 1,
     onDayClick: handleDayClick,
-    modifiers: {
-      disabled: [
-        {
-          before: new Date()
-        }
-      ]
-    }
+    // modifiers: {
+    //   disabled: [
+    //     {
+    //       before: new Date()
+    //     }
+    //   ]
+    // }
   }
 
   return (
