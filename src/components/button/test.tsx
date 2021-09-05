@@ -27,11 +27,11 @@ describe('<Button />', () => {
 
   test('should render the button color correctly', () => {
     const { container } = renderWithTheme(
-      <Button primary onClick={handleClick}>
+      <Button variant="primary" onClick={handleClick}>
         Click Me
       </Button>
     )
 
-    expect(container.firstChild).toHaveStyle({ 'background-color': '#FBAE16' })
+    expect(container.firstChild).toHaveStyle({ 'background-color': 'rgb(238, 82, 83)' })
   })
 })

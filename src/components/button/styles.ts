@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components'
-import media from 'styled-media-query'
 import { darken } from 'polished'
 
 import type { VariantTypes } from '.'
@@ -44,8 +43,6 @@ export const ButtonWrapper = styled.button<{ variant?: VariantTypes; disabled?: 
     cursor: pointer;
     transition: ${theme.transition.ease};
 
-    ${variant === 'rounded' && modifiers.rounded(theme)};
-    ${variant === 'circle' && modifiers.circle(theme)};
     ${variant === 'primary' && modifiers.primary(theme)};
     ${variant === 'secondary' && modifiers.secondary(theme)};
     ${variant === 'skyBlue' && modifiers.skyBlue(theme)};
