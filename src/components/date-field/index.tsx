@@ -1,4 +1,4 @@
-import { createRef } from 'react';
+import { createRef } from 'react'
 import DayPickerInput from 'react-day-picker/DayPickerInput'
 import { DateUtils } from 'react-day-picker'
 import { format as dateFnsFormat, parse as dateFnsParse } from 'date-fns'
@@ -31,8 +31,9 @@ function parseDate(strDate: string, format: string) {
 }
 
 function DateField(props: DateFieldProps): React.ReactElement {
-  const { name, value, disabled, onChange, theme } = props
-  const handleDayClick = (selectedDate: Date): void => onChange({ target: { name, value: formatDate(selectedDate, DATE_FORMAT) } })
+  const { name, value, disabled, onChange } = props
+  const handleDayClick = (selectedDate: Date): void =>
+    onChange({ target: { name, value: formatDate(selectedDate, DATE_FORMAT) } })
   const displayValueFactory = (): string | Date => value
 
   const inputProps = {
@@ -40,13 +41,13 @@ function DateField(props: DateFieldProps): React.ReactElement {
     disabled,
     name,
     readOnly: true,
-    'data-testid': name,
+    'data-testid': name
   }
 
   const dayPickerProps = {
     className: 'Selectable',
     numberOfMonths: 1,
-    onDayClick: handleDayClick,
+    onDayClick: handleDayClick
     // modifiers: {
     //   disabled: [
     //     {

@@ -1,11 +1,15 @@
 import { useState } from 'react'
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, FormProvider } from 'react-hook-form'
 import { Form } from 'containers'
 import 'twin.macro'
-import type { SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from 'react-hook-form'
 import { Filter } from 'containers'
 import { Button } from 'components'
-import { TableHead, TableItem, TableItemEditButton, TableItemDetailsButton } from './table-partials';
+import {
+  TableHead,
+  TableItem,
+  TableItemEditButton,
+} from './table-partials'
 
 const people = [
   {
@@ -17,7 +21,7 @@ const people = [
     status: 'approved',
     category: 'LMIA',
     visa_response_date: '2021-08-27',
-    date_processing_week: '15.71 weeks',
+    date_processing_week: '15.71 weeks'
   },
   {
     name: 'Jane Cooper',
@@ -28,7 +32,7 @@ const people = [
     status: 'approved',
     category: 'LMIA',
     visa_response_date: '2021-08-27',
-    date_processing_week: '15.71 weeks',
+    date_processing_week: '15.71 weeks'
   },
   {
     name: 'Jane Cooper',
@@ -39,7 +43,7 @@ const people = [
     status: 'approved',
     category: 'LMIA',
     visa_response_date: '2021-08-27',
-    date_processing_week: '15.71 weeks',
+    date_processing_week: '15.71 weeks'
   },
   {
     name: 'Jane Cooper',
@@ -50,7 +54,7 @@ const people = [
     status: 'approved',
     category: 'LMIA',
     visa_response_date: '2021-08-27',
-    date_processing_week: '15.71 weeks',
+    date_processing_week: '15.71 weeks'
   },
   {
     name: 'Jane Cooper',
@@ -61,7 +65,7 @@ const people = [
     status: 'approved',
     category: 'LMIA',
     visa_response_date: '2021-08-27',
-    date_processing_week: '15.71 weeks',
+    date_processing_week: '15.71 weeks'
   },
   {
     name: 'Jane Cooper',
@@ -73,7 +77,7 @@ const people = [
     category: 'GTS',
     visa_response_date: '2021-08-27',
     approved: 'No',
-    date_processing_week: '15.71 weeks',
+    date_processing_week: '15.71 weeks'
   },
   {
     name: 'Jane Cooper',
@@ -85,7 +89,7 @@ const people = [
     category: 'GTS',
     visa_response_date: '2021-08-27',
     approved: 'No',
-    date_processing_week: '15.71 weeks',
+    date_processing_week: '15.71 weeks'
   },
   {
     name: 'Jane Cooper',
@@ -96,20 +100,19 @@ const people = [
     status: 'awaiting',
     category: 'GTS',
     date_processing_week: '15.71 weeks',
-    visa_response_date: null,
-  },
+    visa_response_date: null
+  }
 ]
 
 export default function ApplicantList() {
   const [showForm, setShowForm] = useState(false)
   const [editPerson, setEditPerson] = useState({})
-  const methods = useForm<any>();
-  const onSubmit: SubmitHandler<any> = data => console.log('data', data);
+  const methods = useForm<any>()
+  const onSubmit: SubmitHandler<any> = (data) => console.log('data', data)
 
   const handleEditApplication = (person: any) => {
     setShowForm(true)
     setEditPerson(person)
-
   }
 
   const handleSave = () => {
@@ -123,7 +126,10 @@ export default function ApplicantList() {
         <Button variant="skyBlue" onClick={() => setShowForm(true)}>
           New Applicant
         </Button>
-        <Button variant="gray" onClick={() => console.log('Copy approved list')}>
+        <Button
+          variant="gray"
+          onClick={() => console.log('Copy approved list')}
+        >
           Copy approved list
         </Button>
       </div>
@@ -143,7 +149,11 @@ export default function ApplicantList() {
                       <TableItem item={person.date_processing_week} />
                       <TableItem status={person.status} />
                       <TableItem item={person.visa_response_date} />
-                      <TableItemEditButton handleEditApplication={() => handleEditApplication(person)} />
+                      <TableItemEditButton
+                        handleEditApplication={() =>
+                          handleEditApplication(person)
+                        }
+                      />
                     </tr>
                   ))}
                 </tbody>

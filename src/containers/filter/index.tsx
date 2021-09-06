@@ -27,7 +27,7 @@ const Filter = () => {
             { value: 'GTS', label: 'GTS' },
             { value: 'GTS, OWP', label: 'GTS, OWP' },
             { value: 'WP, OWP', label: 'WP, OWP' },
-            { value: 'GTS, OWP, VISITOR', label: 'GTS, OWP, VISITOR' },
+            { value: 'GTS, OWP, VISITOR', label: 'GTS, OWP, VISITOR' }
           ]}
         />
       </FilterGridItem>

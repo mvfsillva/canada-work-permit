@@ -1,12 +1,12 @@
 import * as S from './styles'
 
-export type VariantTypes = 'primary' | 'secondary' | 'skyBlue' | 'gray';
+export type VariantTypes = 'primary' | 'secondary' | 'skyBlue' | 'gray'
 type Props = {
-  children: React.ReactNode;
-  onClick?: () => void;
-  type?: 'button' | 'submit';
-  disabled?: boolean;
-  variant?: VariantTypes;
+  children: React.ReactNode
+  onClick?: () => void
+  type?: 'button' | 'submit'
+  disabled?: boolean
+  variant?: VariantTypes
 }
 
 const Button: React.FC<Props> = ({

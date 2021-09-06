@@ -8,9 +8,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 const Input = forwardRef(
   (props: InputProps, ref?: React.Ref<HTMLInputElement>) => {
     const { disabled, ...restProps } = props
-    return (
-      <S.Field {...restProps} disabled={disabled} ref={ref} />
-    )
+    return <S.Field {...restProps} disabled={disabled} ref={ref} />
   }
 )
 

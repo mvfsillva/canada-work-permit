@@ -32,6 +32,8 @@ describe('<Button />', () => {
       </Button>
     )
 
-    expect(container.firstChild).toHaveStyle({ 'background-color': 'rgb(238, 82, 83)' })
+    expect(container.firstChild).toHaveStyle({
+      'background-color': 'rgb(238, 82, 83)'
+    })
   })
 })

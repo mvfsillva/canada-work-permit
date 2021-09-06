@@ -24,15 +24,8 @@ type SelectProps = Omit<ReactSelectProps, 'onChange'> & {
 function Select(
   props: React.PropsWithChildren<SelectProps>
 ): React.ReactElement {
-  const {
-    name,
-    icon,
-    options,
-    borderless,
-    onChange,
-    theme,
-    ...restProps
-  } = props
+  const { name, icon, options, borderless, onChange, theme, ...restProps } =
+    props
   const [bodyElement, setBodyElement] = useState(undefined)
 
   useEffect(() => {

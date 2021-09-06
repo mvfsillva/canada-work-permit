@@ -25,6 +25,8 @@ describe('<Button />', () => {
       />
     )
 
-    expect(container.firstChild).toHaveStyle({ 'border-bottom-color': '#54A0FF' })
+    expect(container.firstChild).toHaveStyle({
+      'border-bottom-color': '#54A0FF'
+    })
   })
 })

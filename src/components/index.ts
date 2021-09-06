@@ -1,8 +1,8 @@
-export { default as Button } from './button';
-export { default as Card } from './card';
-export { default as DateField } from './date-field';
-export { default as Header } from './header';
-export { default as Input } from './input';
-export { default as Select } from './select';
-export { default as Stats } from './stats';
-export { default as Main } from './main';
+export { default as Button } from './button'
+export { default as Card } from './card'
+export { default as DateField } from './date-field'
+export { default as Header } from './header'
+export { default as Input } from './input'
+export { default as Select } from './select'
+export { default as Stats } from './stats'
+export { default as Main } from './main'

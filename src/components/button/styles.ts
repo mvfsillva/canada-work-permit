@@ -37,7 +37,10 @@ const modifiers = {
   `
 }
 
-export const ButtonWrapper = styled.button<{ variant?: VariantTypes; disabled?: boolean }>`
+export const ButtonWrapper = styled.button<{
+  variant?: VariantTypes
+  disabled?: boolean
+}>`
   ${({ theme, variant, disabled }) => css`
     background-color: ${theme.colors.gray};
     border-radius: ${theme.border.radius};

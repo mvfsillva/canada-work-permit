@@ -31,11 +31,11 @@ const modifiers = {
     :hover {
       border-bottom-color: ${theme.colors.gray};
     }
-  `,
+  `
 }
 
 export const Card = styled.div<{ variant?: VariantTypes }>`
-  ${({ theme, variant }) => css `
+  ${({ theme, variant }) => css`
     position: relative;
     padding: 2rem;
     width: 100%;
@@ -54,7 +54,7 @@ export const Card = styled.div<{ variant?: VariantTypes }>`
 `
 
 export const Title = styled.h1`
-  ${({ theme }) => css `
+  ${({ theme }) => css`
     font-size: ${theme.font.sizes.small};
     ${media.greaterThan('medium')`
       font-size: 1.3rem ${theme.font.sizes.large};
