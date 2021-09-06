@@ -39,6 +39,8 @@ function Select(
     setBodyElement(document.body)
   }, [])
 
+  console.log({ restProps })
+
   const inputStyles = {
     color: theme.colors.gray,
     '&:focus, &:active': {
@@ -135,8 +137,13 @@ function Select(
       isSearchable={false}
       components={{ ValueContainer }}
       menuPortalTarget={bodyElement}
+      value={restProps.value}
       onChange={(option: OptionTypeBase) => {
-        onChange && onChange({ target: { name, value: option } })
+        const selected = {
+          name,
+          value: option
+        }
+        onChange && onChange({ target: selected })
       }}
       styles={styles}
       {...restProps}

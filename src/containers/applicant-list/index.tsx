@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { Form } from 'containers'
 import { TableHead, TableItem, TableItemEditButton, TableItemDetailsButton } from './table-partials';
 import 'twin.macro'
+import type { SubmitHandler } from "react-hook-form";
 
 const people = [
   {
@@ -100,21 +101,19 @@ const people = [
 export default function ApplicantList() {
   const [showForm, setShowForm] = useState(false)
   const [editPerson, setEditPerson] = useState({})
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<any>();
-  const onSubmit: SubmitHandler<any> = data => console.log(data);
-
-  console.log(watch("name"))
+  // const { handleSubmit, watch, formState: { errors } } = useForm<any>();
+  const methods = useForm<any>();
+  const onSubmit: SubmitHandler<any> = data => console.log('data', data);
 
   const handleEditApplication = (person: any) => {
     setShowForm(true)
-    console.log('clicked', person)
     setEditPerson(person)
+
   }
 
   const handleSave = () => {
     setShowForm(false)
-    console.log('on save')
-    return handleSubmit(onSubmit)
+    // return methods.handleSubmit(onSubmit)
   }
 
   return (
@@ -143,10 +142,9 @@ export default function ApplicantList() {
           </div>
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input defaultValue="test" {...register("example")} />
-
-        </form>
+        <FormProvider {...methods} defaultValues={editPerson}>
+          <Form onSubmit={handleSave} />
+        </FormProvider>
       )}
     </div>
   )

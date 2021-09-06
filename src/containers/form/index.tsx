@@ -1,9 +1,19 @@
 import 'twin.macro'
+import { useFormContext, Controller } from 'react-hook-form';
 import { DateField, Input, Select } from 'components'
-import { useState } from 'react'
 
-const Form = ({ data, handleSave, register }: any) => {
-  const [value, setValue] = useState(undefined)
+const statusOptions = [
+  { value: 'awaiting', label: 'Awaiting' },
+  { value: 'approved', label: 'Approved' },
+  { value: 'not approved', label: 'Not approved' },
+]
+
+const Form = ({ data, handleSave }: any) => {
+  const { setValue, register, getValues, defaultValues, control } = useFormContext();
+
+  Object.keys(defaultValues).forEach(key => {
+    setValue(key, defaultValues[key])
+  })
 
   return (
     <section tw="mt-10 sm:mt-0 md:grid md:grid-cols-2 md:gap-6">
@@ -19,7 +29,7 @@ const Form = ({ data, handleSave, register }: any) => {
                   <Input
                     name="name"
                     placeholder="e.g: Drake"
-                    {...register("name")}
+                    {...register('name')}
                   />
                 </div>
 
@@ -30,6 +40,7 @@ const Form = ({ data, handleSave, register }: any) => {
                   <Input
                     name="noc"
                     placeholder="e.g: 2175"
+                    {...register('noc')}
                   />
                 </div>
 
@@ -38,9 +49,10 @@ const Form = ({ data, handleSave, register }: any) => {
                     Application Date
                   </label>
                   <DateField
-                    name="date"
-                    value={value}
-                    onChange={({ target: { value } }) => setValue(value)}
+                    name="application_date"
+                    value={getValues('application_date')}
+                    onChange={({ target: { value } }) => setValue('application_date', value)}
+                    {...register('application_date')}
                   />
                 </div>
                 <div tw="col-span-6 sm:col-span-3">
@@ -48,23 +60,26 @@ const Form = ({ data, handleSave, register }: any) => {
                     Visa Response Date
                   </label>
                   <DateField
-                    name="date"
-                    value={value}
-                    onChange={({ target: { value } }) => setValue(value)}
+                    name="visa_response_date"
+                    value={getValues('visa_response_date')}
+                    onChange={({ target: { value } }) => setValue('visa_response_date', value)}
+                    {...register('visa_response_date')}
                   />
                 </div>
-
 
                 <div tw="col-span-6 sm:col-span-3">
                   <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
                     Application Category (LMIA | GTS | LMIA EXEMPT)
                   </label>
                   <Select
+                    control={control}
                     options={[
                       { value: 'LMIA', label: 'LMIA' },
                       { value: 'LMIA EXEMPT', label: 'LMIA EXEMPT' },
                       { value: 'GTS', label: 'GTS' },
                     ]}
+                    {...register('category')}
+                    onChange={value => setValue('category', value)}
                   />
                 </div>
 
@@ -72,13 +87,21 @@ const Form = ({ data, handleSave, register }: any) => {
                   <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
                     Application Status (Awaiting, Approved | Not Approved)
                   </label>
-                  <Select
-                    options={[
-                      { value: 'awaiting', label: 'Awaiting' },
-                      { value: 'approved', label: 'Approved' },
-                      { value: 'not approved', label: 'Not approved' },
-                    ]}
+                  <Controller
+                    name="status"
+                    control={control}
+                    render={({ field }) => {
+                     return (
+                      <Select
+                        {...field}
+                        value={field.value}
+                        onChange={item => setValue('status', item.value)}
+                        options={statusOptions}
+                      />
+                     )
+                    }}
                   />
+
                 </div>
               </div>
             </div>

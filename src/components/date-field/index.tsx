@@ -12,7 +12,7 @@ type DateFieldProps = {
   name?: string
   value: Date
   disabled?: boolean
-  onChange?(event: { target: { name: string; value: Date } }): void
+  onChange?(event: { target: { name: string; value: string } }): void
   theme: {
     colors: Record<string, string>
   }
@@ -32,11 +32,8 @@ function parseDate(strDate: string, format: string) {
 
 function DateField(props: DateFieldProps): React.ReactElement {
   const { name, value, disabled, onChange, theme } = props
-  const handleDayClick = (day: Date): void =>
-    onChange({ target: { name, value: day } })
-  const displayValueFactory = (): string => {
-    return Boolean(value) && `${formatDate(value, DATE_FORMAT)}`
-  }
+  const handleDayClick = (selectedDate: Date): void => onChange({ target: { name, value: formatDate(selectedDate, DATE_FORMAT) } })
+  const displayValueFactory = (): string | Date => value
 
   const inputProps = {
     id: name,
