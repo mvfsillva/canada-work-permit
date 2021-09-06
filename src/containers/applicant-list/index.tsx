@@ -1,15 +1,11 @@
-import { useState } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import { Form } from 'containers'
 import 'twin.macro'
 import type { SubmitHandler } from 'react-hook-form'
 import { Filter } from 'containers'
 import { Button } from 'components'
-import {
-  TableHead,
-  TableItem,
-  TableItemEditButton,
-} from './table-partials'
+import { TableHead, TableItem, TableItemEditButton } from './table-partials'
 
 const people = [
   {
@@ -107,6 +103,12 @@ const people = [
 export default function ApplicantList() {
   const [showForm, setShowForm] = useState(false)
   const [editPerson, setEditPerson] = useState({})
+  const [data, setData] = useState(people)
+  const [filter, setFilter] = useState({
+    category: 'all',
+    visaType: 'all',
+    status: 'all'
+  })
   const methods = useForm<any>()
   const onSubmit: SubmitHandler<any> = (data) => console.log('data', data)
 
@@ -119,6 +121,32 @@ export default function ApplicantList() {
     setShowForm(false)
     methods.handleSubmit(onSubmit)
   }
+
+  const handleFilter = ({ target }) => {
+    const { name, value: item } = target
+    setFilter({
+      ...filter,
+      [name]: item.value
+    })
+  }
+
+  const filteredData = useMemo(
+    () =>
+      data.filter((person) => {
+        if (filter.visaType === person.visa_type) return person
+      }),
+    []
+  )
+
+  useEffect(() => {
+    if (Boolean(filteredData.length)) {
+      setData(filteredData)
+    }
+  }, [filteredData])
+
+  useEffect(() => {
+    setData(people)
+  }, [])
 
   return (
     <div tw="flex flex-col">
@@ -133,7 +161,7 @@ export default function ApplicantList() {
           Copy approved list
         </Button>
       </div>
-      <Filter />
+      <Filter handleFilter={handleFilter} />
       {!showForm ? (
         <div tw="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div tw="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -141,7 +169,7 @@ export default function ApplicantList() {
               <table tw="min-w-full divide-y divide-gray-200">
                 <TableHead />
                 <tbody tw="bg-white divide-y divide-gray-200">
-                  {people.map((person, index) => (
+                  {data.map((person, index) => (
                     <tr key={index}>
                       <TableItem item={person.name} subItem={person.noc} />
                       <TableItem item={person.application_date} />
