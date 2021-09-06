@@ -39,8 +39,6 @@ function Select(
     setBodyElement(document.body)
   }, [])
 
-  console.log({ restProps })
-
   const inputStyles = {
     color: theme.colors.gray,
     '&:focus, &:active': {

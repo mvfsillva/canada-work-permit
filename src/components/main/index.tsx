@@ -1,6 +1,6 @@
 import 'twin.macro'
 import { Stats } from 'components'
-import { ApplicantList, Filter } from 'containers'
+import { ApplicantList } from 'containers'
 
 import * as S from './styles'
 
@@ -17,15 +17,6 @@ const Main = () => {
         <p tw="mt-1 max-w-2xl text-sm text-gray-500">Details and application.</p>
       </div>
 
-      <div tw="flex items-center space-x-4">
-        <button onClick={() => console.log('new applicant')} tw="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-6 border border-gray-700 rounded">
-          New Applicant
-        </button>
-        <button onClick={() => console.log('Copy approved list')} tw="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-6 border border-green-700 rounded">
-          Copy approved list
-        </button>
-      </div>
-      <Filter />
       <ApplicantList />
     </S.Container>
   )

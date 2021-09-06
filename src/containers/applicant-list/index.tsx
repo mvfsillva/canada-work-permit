@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useForm, FormProvider } from "react-hook-form";
 import { Form } from 'containers'
-import { TableHead, TableItem, TableItemEditButton, TableItemDetailsButton } from './table-partials';
 import 'twin.macro'
 import type { SubmitHandler } from "react-hook-form";
+import { Filter } from 'containers'
+import { Button } from 'components'
+import { TableHead, TableItem, TableItemEditButton, TableItemDetailsButton } from './table-partials';
 
 const people = [
   {
@@ -101,7 +103,6 @@ const people = [
 export default function ApplicantList() {
   const [showForm, setShowForm] = useState(false)
   const [editPerson, setEditPerson] = useState({})
-  // const { handleSubmit, watch, formState: { errors } } = useForm<any>();
   const methods = useForm<any>();
   const onSubmit: SubmitHandler<any> = data => console.log('data', data);
 
@@ -113,11 +114,20 @@ export default function ApplicantList() {
 
   const handleSave = () => {
     setShowForm(false)
-    // return methods.handleSubmit(onSubmit)
+    methods.handleSubmit(onSubmit)
   }
 
   return (
     <div tw="flex flex-col">
+      <div tw="flex items-center mb-4 space-x-4">
+        <Button variant="skyBlue" onClick={() => setShowForm(true)}>
+          New Applicant
+        </Button>
+        <Button variant="gray" onClick={() => console.log('Copy approved list')}>
+          Copy approved list
+        </Button>
+      </div>
+      <Filter />
       {!showForm ? (
         <div tw="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div tw="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -143,7 +153,7 @@ export default function ApplicantList() {
         </div>
       ) : (
         <FormProvider {...methods} defaultValues={editPerson}>
-          <Form onSubmit={handleSave} />
+          <Form onSubmit={handleSave} handleCancel={() => setShowForm(false)} />
         </FormProvider>
       )}
     </div>

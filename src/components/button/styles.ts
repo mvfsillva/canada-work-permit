@@ -22,6 +22,12 @@ const modifiers = {
       background: ${darken(0.1, theme.colors.blue)};
     }
   `,
+  gray: (theme) => css`
+    background-color: ${theme.colors.darkGray};
+    &:hover {
+      background: ${darken(0.1, theme.colors.gray)};
+    }
+  `,
   disabled: (theme) => css`
     background-color: ${theme.colors.muted};
     cursor: not-allowed;
@@ -46,6 +52,7 @@ export const ButtonWrapper = styled.button<{ variant?: VariantTypes; disabled?: 
     ${variant === 'primary' && modifiers.primary(theme)};
     ${variant === 'secondary' && modifiers.secondary(theme)};
     ${variant === 'skyBlue' && modifiers.skyBlue(theme)};
+    ${variant === 'gray' && modifiers.gray(theme)};
     ${disabled && modifiers.disabled(theme)};
   `}
 `

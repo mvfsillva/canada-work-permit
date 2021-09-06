@@ -1,6 +1,6 @@
 import 'twin.macro'
 import { useFormContext, Controller } from 'react-hook-form';
-import { DateField, Input, Select } from 'components'
+import { DateField, Input, Select, Button } from 'components'
 
 const statusOptions = [
   { value: 'awaiting', label: 'Awaiting' },
@@ -8,12 +8,16 @@ const statusOptions = [
   { value: 'not approved', label: 'Not approved' },
 ]
 
-const Form = ({ data, handleSave }: any) => {
-  const { setValue, register, getValues, defaultValues, control } = useFormContext();
+const categoryOptions = [
+  { value: 'LMIA', label: 'LMIA' },
+  { value: 'LMIA EXEMPT', label: 'LMIA EXEMPT' },
+  { value: 'GTS', label: 'GTS' },
+]
 
-  Object.keys(defaultValues).forEach(key => {
-    setValue(key, defaultValues[key])
-  })
+const Form = ({ data, handleSave, handleCancel }: any) => {
+  const { setValue, register, getValues, defaultValues, control, reset } = useFormContext();
+
+  Object.keys(defaultValues).forEach(key => setValue(key, defaultValues[key]))
 
   return (
     <section tw="mt-10 sm:mt-0 md:grid md:grid-cols-2 md:gap-6">
@@ -71,15 +75,18 @@ const Form = ({ data, handleSave }: any) => {
                   <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
                     Application Category (LMIA | GTS | LMIA EXEMPT)
                   </label>
-                  <Select
+                  <Controller
+                    name="category"
                     control={control}
-                    options={[
-                      { value: 'LMIA', label: 'LMIA' },
-                      { value: 'LMIA EXEMPT', label: 'LMIA EXEMPT' },
-                      { value: 'GTS', label: 'GTS' },
-                    ]}
-                    {...register('category')}
-                    onChange={value => setValue('category', value)}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        value={categoryOptions.find(({value}) => value === field.value)}
+                        onChange={item => setValue('category', item.value)}
+                        options={categoryOptions}
+                      />
+                     )
+                    }
                   />
                 </div>
 
@@ -90,29 +97,25 @@ const Form = ({ data, handleSave }: any) => {
                   <Controller
                     name="status"
                     control={control}
-                    render={({ field }) => {
-                     return (
+                    render={({ field }) => (
                       <Select
                         {...field}
-                        value={field.value}
+                        value={statusOptions.find(({value}) => value === field.value)}
                         onChange={item => setValue('status', item.value)}
                         options={statusOptions}
                       />
                      )
-                    }}
+                    }
                   />
-
                 </div>
               </div>
             </div>
-            <div tw="px-4 py-3 bg-gray-50 text-right sm:px-6">
-              <button
-                type="submit"
-                tw="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-
-              >
-                Save
-              </button>
+            <div tw="px-4 py-3 bg-gray-50 text-right sm:px-6 space-x-4">
+              <Button variant="skyBlue" type="submit">Save</Button>
+              <Button variant="primary" onClick={() => {
+                reset()
+                handleCancel()
+                }}>Cancel</Button>
             </div>
           </div>
         </form>

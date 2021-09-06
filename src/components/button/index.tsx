@@ -1,9 +1,9 @@
 import * as S from './styles'
 
-export type VariantTypes = 'rounded' | 'circle' | 'primary' | 'secondary' | 'skyBlue';
+export type VariantTypes = 'primary' | 'secondary' | 'skyBlue' | 'gray';
 type Props = {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   type?: 'button' | 'submit';
   disabled?: boolean;
   variant?: VariantTypes;
