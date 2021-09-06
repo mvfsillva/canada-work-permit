@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components'
-import media from 'styled-media-query'
 import { darken, lighten } from 'polished'
 
 import type { VariantTypes } from '.'
@@ -37,9 +36,9 @@ const modifiers = {
 export const Card = styled.div<{ variant?: VariantTypes }>`
   ${({ theme, variant }) => css`
     position: relative;
-    padding: 2rem;
+    padding: 1rem;
     width: 100%;
-    box-shadow: 0 0 5px 0px ${theme.colors.muted};
+    box-shadow: 0 0 4px 0px ${theme.colors.muted};
 
     transition: border-bottom ${theme.transition.ease};
     border-radius: ${theme.border.radius};
@@ -55,29 +54,20 @@ export const Card = styled.div<{ variant?: VariantTypes }>`
 
 export const Title = styled.h1`
   ${({ theme }) => css`
-    font-size: ${theme.font.sizes.small};
-    ${media.greaterThan('medium')`
-      font-size: 1.3rem ${theme.font.sizes.large};
-    `}
+    font-size: ${theme.font.sizes.xsmall};
   `}
 `
 
 export const Content = styled.p`
   ${({ theme }) => css`
-    margin: 1.4rem auto;
-    font-size: ${theme.font.sizes.small};
-    ${media.greaterThan('medium')`
-      font-size: 1.3rem ${theme.font.sizes.medium};
-    `}
+    margin: 0.7rem auto;
+    font-weight: bold;
+    font-size: 1rem;
   `}
 `
 
 export const Footer = styled.footer`
   ${({ theme }) => css`
     color: ${theme.colors.darkGray};
-    font-size: ${theme.font.sizes.xsmall};
-    ${media.greaterThan('medium')`
-      font-size: 1.3rem ${theme.font.sizes.xmedium};
-    `}
   `}
 `
