@@ -7,7 +7,7 @@ type StatusType = StatusTypes
 type TableItemProps = {
   item?: string | number
   subItem?: string | number
-  status?: StatusType
+  status?: StatusType | string
 }
 
 const Th = tw.th`px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider`

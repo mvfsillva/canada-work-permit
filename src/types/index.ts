@@ -11,11 +11,11 @@ export interface ApplicationType {
   id: string
   name?: string
   noc: number
-  application_date: Date
-  application_year: Date
-  visa_response_date?: Date
-  processing_week_time: string
-  processing_month_time: string
+  application_date: string
+  application_year: string
+  visa_response_date?: string
+  date_processing_week: string
+  date_processing_month: string
   status: StatusTypes
   approved?: boolean
   visa_type: VisaTypes

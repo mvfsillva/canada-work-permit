@@ -1,10 +1,11 @@
-import { useState, useMemo, useEffect } from 'react'
-import { useForm, FormProvider } from 'react-hook-form'
-import { Form } from 'containers'
 import 'twin.macro'
-import type { SubmitHandler } from 'react-hook-form'
-import { Filter } from 'containers'
+import { useState, useEffect } from 'react'
+import { useForm, FormProvider as ReactFormProvider } from 'react-hook-form'
+import { Form, Filter } from 'containers'
 import { Button } from 'components'
+
+import type { SubmitHandler } from 'react-hook-form'
+import type { ApplicationType } from 'types'
 import { TableHead, TableItem, TableItemEditButton } from './table-partials'
 
 const people = [
@@ -98,21 +99,25 @@ const people = [
     date_processing_week: '15.71 weeks',
     visa_response_date: null
   }
-]
+] as unknown as Partial<ApplicationType[]>
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const FormProvider = ReactFormProvider as unknown as any
 
 export default function ApplicantList() {
   const [showForm, setShowForm] = useState(false)
   const [editPerson, setEditPerson] = useState({})
-  const [data, setData] = useState(people)
+  const [data, setData] = useState<Partial<ApplicationType[]>>()
   const [filter, setFilter] = useState({
     category: 'all',
     visaType: 'all',
     status: 'all'
   })
-  const methods = useForm<any>()
-  const onSubmit: SubmitHandler<any> = (data) => console.log('data', data)
+  const methods = useForm()
+  const onSubmit: SubmitHandler<Partial<ApplicationType>> = (data) =>
+    console.log('data', data)
 
-  const handleEditApplication = (person: any) => {
+  const handleEditApplication = (person: Partial<ApplicationType>) => {
     setShowForm(true)
     setEditPerson(person)
   }
@@ -130,16 +135,12 @@ export default function ApplicantList() {
     })
   }
 
-  const filteredData = useMemo(
-    () =>
-      data.filter((person) => {
-        if (filter.visaType === person.visa_type) return person
-      }),
-    []
-  )
+  const filteredData = data.filter((person) => {
+    if (filter.visaType === person.visa_type) return person
+  })
 
   useEffect(() => {
-    if (Boolean(filteredData.length)) {
+    if (filteredData.length) {
       setData(filteredData)
     }
   }, [filteredData])
