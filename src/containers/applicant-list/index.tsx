@@ -1,130 +1,42 @@
 import 'twin.macro'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useForm, FormProvider as ReactFormProvider } from 'react-hook-form'
-import { Form, Filter } from 'containers'
+import { Fields, Filter } from 'containers'
 import { Button } from 'components'
+import { create } from 'services'
 
-import type { SubmitHandler } from 'react-hook-form'
 import type { ApplicationType } from 'types'
 import { TableHead, TableItem, TableItemEditButton } from './table-partials'
-
-const people = [
-  {
-    name: 'Jane Cooper',
-    noc: 2174,
-    application_date: '2021-05-19',
-    application_year: 2021,
-    visa_type: 'WP',
-    status: 'approved',
-    category: 'LMIA',
-    visa_response_date: '2021-08-27',
-    date_processing_week: '15.71 weeks'
-  },
-  {
-    name: 'Jane Cooper',
-    noc: 2174,
-    application_date: '2021-05-19',
-    application_year: 2021,
-    visa_type: 'WP',
-    status: 'approved',
-    category: 'LMIA',
-    visa_response_date: '2021-08-27',
-    date_processing_week: '15.71 weeks'
-  },
-  {
-    name: 'Jane Cooper',
-    noc: 2174,
-    application_date: '2021-05-19',
-    application_year: 2021,
-    visa_type: 'WP',
-    status: 'approved',
-    category: 'LMIA',
-    visa_response_date: '2021-08-27',
-    date_processing_week: '15.71 weeks'
-  },
-  {
-    name: 'Jane Cooper',
-    noc: 2174,
-    application_date: '2021-05-19',
-    application_year: 2021,
-    visa_type: 'WP',
-    status: 'approved',
-    category: 'LMIA',
-    visa_response_date: '2021-08-27',
-    date_processing_week: '15.71 weeks'
-  },
-  {
-    name: 'Jane Cooper',
-    noc: 2174,
-    application_date: '2021-05-19',
-    application_year: 2021,
-    visa_type: 'WP',
-    status: 'approved',
-    category: 'LMIA',
-    visa_response_date: '2021-08-27',
-    date_processing_week: '15.71 weeks'
-  },
-  {
-    name: 'Jane Cooper',
-    noc: 2174,
-    application_date: '2021-05-19',
-    application_year: 2021,
-    visa_type: 'OWP',
-    status: 'approved',
-    category: 'GTS',
-    visa_response_date: '2021-08-27',
-    approved: 'No',
-    date_processing_week: '15.71 weeks'
-  },
-  {
-    name: 'Jane Cooper',
-    noc: 2174,
-    application_date: '2021-05-19',
-    application_year: 2021,
-    visa_type: 'OWP',
-    status: 'not approved',
-    category: 'GTS',
-    visa_response_date: '2021-08-27',
-    approved: 'No',
-    date_processing_week: '15.71 weeks'
-  },
-  {
-    name: 'Jane Cooper',
-    noc: 2174,
-    application_date: '2021-05-19',
-    application_year: 2021,
-    visa_type: 'OWP',
-    status: 'awaiting',
-    category: 'GTS',
-    date_processing_week: '15.71 weeks',
-    visa_response_date: null
-  }
-] as unknown as Partial<ApplicationType[]>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const FormProvider = ReactFormProvider as unknown as any
 
-export default function ApplicantList() {
+type ApplicantListProps = {
+  applications: Partial<ApplicationType[]>
+}
+
+export default function ApplicantList({ applications }: ApplicantListProps) {
   const [showForm, setShowForm] = useState(false)
   const [editPerson, setEditPerson] = useState({})
-  const [data, setData] = useState<Partial<ApplicationType[]>>()
   const [filter, setFilter] = useState({
     category: 'all',
     visaType: 'all',
     status: 'all'
   })
   const methods = useForm()
-  const onSubmit: SubmitHandler<Partial<ApplicationType>> = (data) =>
-    console.log('data', data)
+
+  console.log(methods.watch())
+
+  const onSubmit = (data) => {
+    console.log(data)
+    create(data)
+    methods.reset()
+    setShowForm(false)
+  }
 
   const handleEditApplication = (person: Partial<ApplicationType>) => {
     setShowForm(true)
     setEditPerson(person)
-  }
-
-  const handleSave = () => {
-    setShowForm(false)
-    methods.handleSubmit(onSubmit)
   }
 
   const handleFilter = ({ target }) => {
@@ -134,20 +46,6 @@ export default function ApplicantList() {
       [name]: item.value
     })
   }
-
-  const filteredData = data.filter((person) => {
-    if (filter.visaType === person.visa_type) return person
-  })
-
-  useEffect(() => {
-    if (filteredData.length) {
-      setData(filteredData)
-    }
-  }, [filteredData])
-
-  useEffect(() => {
-    setData(people)
-  }, [])
 
   return (
     <div tw="flex flex-col">
@@ -170,7 +68,7 @@ export default function ApplicantList() {
               <table tw="min-w-full divide-y divide-gray-200">
                 <TableHead />
                 <tbody tw="bg-white divide-y divide-gray-200">
-                  {data.map((person, index) => (
+                  {applications.map((person, index) => (
                     <tr key={index}>
                       <TableItem item={person.name} subItem={person.noc} />
                       <TableItem item={person.application_date} />
@@ -192,7 +90,9 @@ export default function ApplicantList() {
         </div>
       ) : (
         <FormProvider {...methods} defaultValues={editPerson}>
-          <Form onSubmit={handleSave} handleCancel={() => setShowForm(false)} />
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <Fields handleCancel={() => setShowForm(false)} />
+          </form>
         </FormProvider>
       )}
     </div>
