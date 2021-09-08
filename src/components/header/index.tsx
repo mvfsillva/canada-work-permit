@@ -1,39 +1,14 @@
-import { useTranslation } from 'react-i18next'
-import Select from 'components/select'
-
 import * as S from './styles'
 
 const Header = () => {
-  const { i18n, t } = useTranslation()
-
-  const LANGUAGE_OPTIONS = [
-    { label: t('english'), value: 'en-US' },
-    { label: t('portuguese'), value: 'pt-BR' },
-    { label: t('spanish'), value: 'es' }
-  ]
-
-  const selectedOption = LANGUAGE_OPTIONS.find(
-    ({ value }) => value === i18n.language
-  ) || { label: 'English', value: 'en-US' }
-
   return (
     <S.Wrapper>
-      <S.ContentSelect>
-        <Select
-          name="lang"
-          options={[
-            { label: 'English', value: 'en-US' },
-            { label: 'Portuguese', value: 'pt-BR' },
-            { label: 'Spanish', value: 'es' }
-          ]}
-          value={selectedOption}
-          onChange={({
-            target: {
-              value: { value: lang }
-            }
-          }) => i18n.changeLanguage(lang)}
-        />
-      </S.ContentSelect>
+      <h1 tw="text-lg leading-3 font-medium text-gray-900">
+        Brazilians Work Permit - Process Time
+      </h1>
+      <h2 tw="mt-1 max-w-2xl text-sm text-gray-500">
+        Details and application.
+      </h2>
     </S.Wrapper>
   )
 }
