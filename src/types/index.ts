@@ -3,7 +3,9 @@ export type VisaTypes =
   | 'OWP'
   | 'GTS, OWP'
   | 'WP, OWP'
+  | 'WP, OWP, VISITOR'
   | 'GTS, OWP, VISITOR'
+
 export type CategoryTypes = 'LMIA' | 'LMIA EXEMPT' | 'GTS'
 export type StatusTypes = 'awaiting' | 'approved' | 'not approved'
 
