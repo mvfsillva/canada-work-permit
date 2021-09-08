@@ -1,24 +1,34 @@
-import 'twin.macro'
+import tw from 'twin.macro'
 import { useFormContext, Controller } from 'react-hook-form'
 import { DateField, Input, Select, Button } from 'components'
+import { useRouter } from 'next/router'
+import type { VisaTypes, CategoryTypes, StatusTypes } from 'types'
+const Label = tw.label`block text-sm font-medium text-gray-700 capitalize`
 
 const statusOptions = [
   { value: 'awaiting', label: 'Awaiting' },
   { value: 'approved', label: 'Approved' },
   { value: 'not approved', label: 'Not approved' }
-]
+] as unknown as Record<string, StatusTypes>[]
 
 const categoryOptions = [
   { value: 'LMIA', label: 'LMIA' },
   { value: 'LMIA EXEMPT', label: 'LMIA EXEMPT' },
   { value: 'GTS', label: 'GTS' }
-]
+] as unknown as Record<string, CategoryTypes>[]
 
-const Fields = ({ handleCancel }: any) => {
-  const { setValue, register, getValues, defaultValues, control, reset } =
-    useFormContext()
+const visaTypeOptions = [
+  { value: 'WP', label: 'WP' },
+  { value: 'OWP', label: 'OWP' },
+  { value: 'GTS, OWP', label: 'GTS, OWP' },
+  { value: 'WP, OWP', label: 'WP, OWP' },
+  { value: 'WP, OWP, VISITOR', label: 'WP, OWP, VISITOR' },
+  { value: 'GTS, OWP, VISITOR', label: 'GTS, OWP, VISITOR' }
+] as unknown as Record<string, VisaTypes>[]
 
-  Object.keys(defaultValues).forEach((key) => setValue(key, defaultValues[key]))
+const Fields = () => {
+  const router = useRouter()
+  const { setValue, register, getValues, control, reset } = useFormContext()
 
   return (
     <section tw="mt-10 sm:mt-0 md:grid md:grid-cols-2 md:gap-6">
@@ -27,12 +37,7 @@ const Fields = ({ handleCancel }: any) => {
           <div tw="px-4 py-5 bg-white sm:p-6">
             <div tw="grid grid-cols-6 gap-6">
               <div tw="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="first-name"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Name (You do not need to add your last name)
-                </label>
+                <Label>Name (You do not need to add your last name)</Label>
                 <Input
                   name="name"
                   placeholder="e.g: Drake"
@@ -41,12 +46,7 @@ const Fields = ({ handleCancel }: any) => {
               </div>
 
               <div tw="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="first-name"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  NOC
-                </label>
+                <Label>NOC</Label>
                 <Input
                   name="noc"
                   placeholder="e.g: 2175"
@@ -55,12 +55,7 @@ const Fields = ({ handleCancel }: any) => {
               </div>
 
               <div tw="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="first-name"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Application Date
-                </label>
+                <Label>Application Date</Label>
                 <DateField
                   name="application_date"
                   value={getValues('application_date')}
@@ -71,12 +66,7 @@ const Fields = ({ handleCancel }: any) => {
                 />
               </div>
               <div tw="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="first-name"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Visa Response Date
-                </label>
+                <Label>Visa Response Date</Label>
                 <DateField
                   name="visa_response_date"
                   value={getValues('visa_response_date')}
@@ -88,12 +78,7 @@ const Fields = ({ handleCancel }: any) => {
               </div>
 
               <div tw="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="first-name"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Application Category (LMIA | GTS | LMIA EXEMPT)
-                </label>
+                <Label>Application Category (LMIA | GTS | LMIA EXEMPT)</Label>
                 <Controller
                   name="category"
                   control={control}
@@ -114,12 +99,9 @@ const Fields = ({ handleCancel }: any) => {
               </div>
 
               <div tw="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="first-name"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <Label>
                   Application Status (Awaiting, Approved | Not Approved)
-                </label>
+                </Label>
                 <Controller
                   name="status"
                   control={control}
@@ -138,6 +120,26 @@ const Fields = ({ handleCancel }: any) => {
                   )}
                 />
               </div>
+              <div tw="col-span-6 sm:col-span-3">
+                <Label>Visa Type</Label>
+                <Controller
+                  name="visa_type"
+                  control={control}
+                  {...register('visa_type')}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      value={visaTypeOptions.find(
+                        ({ value }) => value === field.value
+                      )}
+                      onChange={({ target: { value } }) =>
+                        setValue('visa_type', value)
+                      }
+                      options={visaTypeOptions}
+                    />
+                  )}
+                />
+              </div>
             </div>
           </div>
           <div tw="px-4 py-3 bg-gray-50 text-right sm:px-6 space-x-4">
@@ -148,7 +150,7 @@ const Fields = ({ handleCancel }: any) => {
               variant="primary"
               onClick={() => {
                 reset()
-                handleCancel()
+                router.push('/')
               }}
             >
               Cancel

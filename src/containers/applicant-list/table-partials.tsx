@@ -27,7 +27,7 @@ export const TableHead = () => (
       <Th>Name</Th>
       <Th>Application Date</Th>
       <Th>Application Year</Th>
-      <Th>Processing Times (Weeks)</Th>
+      <Th>Processing Time</Th>
       <Th>Status</Th>
       <Th>Date Processed</Th>
       <th tw="relative px-3 py-3">
