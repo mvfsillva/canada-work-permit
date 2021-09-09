@@ -1,10 +1,16 @@
 {
-  "name": "project_name",
-  "short_name": "project_name",
-  "icons": [],
-  "background_color": "#FFFFFF",
-  "theme_color": "#FFFFFF",
-  "description": "",
-  "display": "fullscreen",
-  "start_url": "/"
+  "name": "Work Permit Process Time",
+  "short_name": "WP Brazil",
+  "icons": [{
+    "src": "/android-chrome-192x192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  }, {
+    "src": "/android-chrome-512x512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
 }
