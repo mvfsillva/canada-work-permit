@@ -7,7 +7,7 @@ import { firebase } from 'services'
 import { pluralize } from 'helpers'
 
 import { Card, Header } from 'components'
-import { Box } from 'layout'
+import { Box, Container } from 'layout'
 import { ApplicantList } from 'containers'
 import * as S from './styles'
 
@@ -55,7 +55,7 @@ const Main = () => {
   if (error) return <Box>{ERROR_MESSAGE}</Box>
 
   return (
-    <S.Container>
+    <Container>
       <Header />
       <section tw="mt-10 sm:mt-0 md:grid md:grid-cols-3 md:gap-6">
         <div tw="mb-4">
@@ -86,8 +86,8 @@ const Main = () => {
           />
         </div>
       </section>
-      <ApplicantList applications={values} />
-    </S.Container>
+      <ApplicantList />
+    </Container>
   )
 }
 

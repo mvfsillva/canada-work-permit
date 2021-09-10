@@ -1,49 +1,58 @@
 import 'twin.macro'
 import { useRouter } from 'next/router'
 import { useCopyToClipboard } from 'react-use'
+import Link from 'next/link'
+import { useList } from 'react-firebase-hooks/database'
 import { Button } from 'components'
 import { pluralize } from 'helpers'
-
-import type { ApplicationType } from 'types'
+import { firebase } from 'services'
+import { Box } from 'layout'
 import { TableHead, TableItem } from './table-partials'
 
-type ApplicantListProps = {
-  applications: Partial<ApplicationType[]>
-}
-
-export default function ApplicantList({ applications }: ApplicantListProps) {
+export default function ApplicantList() {
   const router = useRouter()
+  const [applications, isLoading, error] = useList(
+    firebase.ref('/applications')
+  )
+
   const [, copyToClipboard] = useCopyToClipboard()
+
+  if (isLoading) return <Box>Loading...</Box>
+  if (error) return <Box>An error has occurred</Box>
 
   let approvedList = ''
   let approvedNocList = ''
 
   applications.forEach((item) => {
     const dateProcessingWeek =
-      +item.date_processing_week > 0
-        ? pluralize(+item.date_processing_week, 'week')
+      +item.val().date_processing_week > 0
+        ? pluralize(+item.val().date_processing_week, 'week')
         : 'less than 1 week'
 
-    if (item.status === 'approved') {
-      approvedList += `${item.name} | ${item.noc} | ${item.application_date} | ${item.visa_type} | ${item.category} | ${item.visa_response_date} | ${dateProcessingWeek}\n`
+    if (item.val().status === 'approved') {
+      approvedList += `${item.val().name} | ${item.val().noc} | ${
+        item.val().application_date
+      } | ${item.val().visa_type} | ${item.val().category} | ${
+        item.val().visa_response_date
+      } | ${dateProcessingWeek}\n`
     }
 
     if (
-      item.status === 'approved' &&
+      item.val().status === 'approved' &&
       !approvedNocList
         .replaceAll(' ✅', '')
         .trim()
         .split('\n')
-        .includes(`${item.noc}`)
+        .includes(`${item.val().noc}`)
     ) {
-      approvedNocList += `${item.noc} ✅ \n`
+      approvedNocList += `${item.val().noc} ✅ \n`
     }
   })
 
   return (
     <div tw="flex flex-col">
       <div tw="sm:mt-0 md:grid md:grid-cols-3 md:gap-6 mb-4 sm:w-full lg:w-6/12">
-        <Button variant="black" onClick={() => router.push('/new-applicant')}>
+        <Button variant="black" onClick={() => router.push('/applicant/new')}>
           New Applicant
         </Button>
         <Button variant="skyBlue" onClick={() => copyToClipboard(approvedList)}>
@@ -57,21 +66,27 @@ export default function ApplicantList({ applications }: ApplicantListProps) {
         <table tw="min-w-full divide-y divide-gray-200">
           <TableHead />
           <tbody tw="bg-white divide-y divide-gray-200">
-            {applications.map((person, index) => (
-              <tr key={index}>
-                <TableItem item={person.name} subItem={person.noc} />
-                <TableItem item={person.application_date} />
-                <TableItem item={person.application_year} />
+            {applications.map((person) => (
+              <tr
+                tw="cursor-pointer hover:bg-gray-300"
+                key={person.key}
+                onClick={() => router.push(`/applicant/edit/${person.key}`)}
+              >
+                <TableItem
+                  item={person.val().name}
+                  subItem={person.val().noc}
+                />
+                <TableItem item={person.val().application_date} />
+                <TableItem item={person.val().application_year} />
                 <TableItem
                   item={
-                    +person.date_processing_week > 0
-                      ? pluralize(+person.date_processing_week, 'week')
+                    +person.val().date_processing_week > 0
+                      ? pluralize(+person.val().date_processing_week, 'week')
                       : 'less than 1 week'
                   }
                 />
-                <TableItem status={person.status} />
-                <TableItem item={person.visa_response_date} />
-                {/* <TableItemEditButton /> */}
+                <TableItem status={person.val().status} />
+                <TableItem item={person.val().visa_response_date} />
               </tr>
             ))}
           </tbody>
