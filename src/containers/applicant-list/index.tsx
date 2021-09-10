@@ -42,7 +42,7 @@ export default function ApplicantList({ applications }: ApplicantListProps) {
 
   return (
     <div tw="flex flex-col">
-      <div tw="sm:mt-0 md:grid md:grid-cols-3 md:gap-6 mb-4">
+      <div tw="sm:mt-0 md:grid md:grid-cols-3 md:gap-6 mb-4 sm:w-full lg:w-6/12">
         <Button variant="black" onClick={() => router.push('/new-applicant')}>
           New Applicant
         </Button>

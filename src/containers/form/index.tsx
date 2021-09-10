@@ -3,7 +3,8 @@ import { useFormContext, Controller } from 'react-hook-form'
 import { DateField, Input, Select, Button } from 'components'
 import { useRouter } from 'next/router'
 import type { VisaTypes, CategoryTypes, StatusTypes } from 'types'
-const Label = tw.label`block text-sm font-medium text-gray-700 capitalize`
+
+const Label = tw.label`block text-sm font-medium text-gray-700 capitalize mb-2`
 
 const statusOptions = [
   { value: 'awaiting', label: 'Awaiting' },
@@ -142,7 +143,7 @@ const Fields = () => {
               </div>
             </div>
           </div>
-          <div tw="px-4  bg-gray-50 text-right">
+          <div tw="md:grid md:grid-cols-2 md:gap-6 p-4 sm:w-full md:w-5/12">
             <Button variant="skyBlue" type="submit">
               Save
             </Button>
