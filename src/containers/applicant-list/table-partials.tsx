@@ -30,12 +30,12 @@ export const TableHead = () => (
       <Th>Processing Time</Th>
       <Th>Status</Th>
       <Th>Date Processed</Th>
-      <th tw="relative px-3 py-3">
+      {/* <th tw="relative px-3 py-3">
         <span tw="sr-only">Details</span>
       </th>
       <th tw="relative px-3 py-3">
         <span tw="sr-only">Edit</span>
-      </th>
+      </th> */}
     </tr>
   </thead>
 )

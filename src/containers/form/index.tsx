@@ -32,9 +32,9 @@ const Fields = () => {
   const { setValue, register, getValues, control, reset } = useFormContext()
 
   return (
-    <section tw="mt-10 sm:mt-0 md:grid md:grid-cols-2 md:gap-6">
+    <section tw="md:grid md:grid-cols-2 md:gap-6 md:mb-0 sm:mb-5">
       <div tw="mt-5 md:mt-0 md:col-span-2">
-        <div tw="shadow overflow-hidden sm:rounded-md">
+        <div tw="shadow-lg overflow-hidden sm:rounded-md">
           <div tw="px-4 py-5 bg-white sm:p-6">
             <div tw="grid grid-cols-6 gap-6">
               <div tw="col-span-6 sm:col-span-3">
@@ -151,7 +151,7 @@ const Fields = () => {
               variant="primary"
               onClick={() => {
                 reset()
-                router.push('/')
+                router.back()
               }}
             >
               Cancel
