@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { darken } from 'polished'
+import { darken, lighten } from 'polished'
 
 import type { VariantTypes } from '.'
 
@@ -28,6 +28,18 @@ const modifiers = {
       background: ${darken(0.1, theme.colors.gray)};
     }
   `,
+  black: (theme) => css`
+    background-color: ${theme.colors.black};
+    &:hover {
+      background: ${lighten(0.1, theme.colors.black)};
+    }
+  `,
+  aqua: (theme) => css`
+    background-color: ${theme.colors.aqua};
+    &:hover {
+      background: ${darken(0.1, theme.colors.aqua)};
+    }
+  `,
   disabled: (theme) => css`
     background-color: ${theme.colors.muted};
     cursor: not-allowed;
@@ -42,10 +54,12 @@ export const ButtonWrapper = styled.button<{
   disabled?: boolean
 }>`
   ${({ theme, variant, disabled }) => css`
+    width: 100%;
     background-color: ${theme.colors.gray};
     border-radius: ${theme.border.radius};
     color: ${theme.colors.white};
     padding: 1rem ${theme.spaces.small};
+    margin: 0.2rem;
     font-size: ${theme.font.sizes.base};
     text-align: center;
     white-space: nowrap;
@@ -56,6 +70,8 @@ export const ButtonWrapper = styled.button<{
     ${variant === 'secondary' && modifiers.secondary(theme)};
     ${variant === 'skyBlue' && modifiers.skyBlue(theme)};
     ${variant === 'gray' && modifiers.gray(theme)};
+    ${variant === 'black' && modifiers.black(theme)};
+    ${variant === 'aqua' && modifiers.aqua(theme)};
     ${disabled && modifiers.disabled(theme)};
   `}
 `

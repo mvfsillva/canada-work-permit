@@ -1,6 +1,12 @@
 import * as S from './styles'
 
-export type VariantTypes = 'primary' | 'secondary' | 'skyBlue' | 'gray'
+export type VariantTypes =
+  | 'primary'
+  | 'secondary'
+  | 'skyBlue'
+  | 'gray'
+  | 'black'
+  | 'aqua'
 type Props = {
   children: React.ReactNode
   onClick?: () => void
