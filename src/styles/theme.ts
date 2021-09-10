@@ -36,9 +36,10 @@ const theme: any = {
   colors: {
     primary: '#EE5253',
     secondary: '#FF6B6B',
-    blue: '#54A0FF',
+    blue: '#10ac84',
+    aqua: '#01a3a4',
     white: '#FFFFFF',
-    black: '#222F3E',
+    black: '#000000',
     gray: '#C8D6E5',
     darkGray: '#8395A7',
     muted: '#E8EFF5'
