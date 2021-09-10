@@ -23,6 +23,7 @@ const Main = () => {
   const [values, loading, error] = useListValues<ApplicationType>(
     firebase.ref('/applications')
   )
+
   const [time, setTime] = useState<Record<string, number>>({
     shortest: 0,
     longest: 0
@@ -53,34 +54,38 @@ const Main = () => {
   if (!ircc || loading) return <Box>Loading...</Box>
   if (error) return <Box>{ERROR_MESSAGE}</Box>
 
-  console.log(time.shortest)
-
   return (
     <S.Container>
       <Header />
-      <div tw="flex items-center justify-center mb-4 space-x-4">
-        <Card
-          title="IRCC"
-          content={irccError ? ERROR_MESSAGE : ircc?.work?.BR}
-          footer={`Last update: ${ircc?.work?.lastupdated}`}
-          variant="gray"
-        />
-        <Card
-          title="Longest waiting"
-          content={`${pluralize(time.longest, 'week')}`}
-          footer="Based on our applications history"
-        />
-        <Card
-          title="shorter waiting"
-          content={
-            time.shortest > 0.1
-              ? pluralize(time.shortest, 'week')
-              : 'less than 1 week'
-          }
-          variant="skyBlue"
-          footer="Based on our applications history"
-        />
-      </div>
+      <section tw="mt-10 sm:mt-0 md:grid md:grid-cols-3 md:gap-6">
+        <div tw="mb-4">
+          <Card
+            title="IRCC"
+            content={irccError ? ERROR_MESSAGE : ircc?.work?.BR}
+            footer={`Last update: ${ircc?.work?.lastupdated}`}
+            variant="gray"
+          />
+        </div>
+        <div tw="mb-4">
+          <Card
+            title="Longest waiting"
+            content={`${pluralize(time.longest, 'week')}`}
+            footer="Based on our applications history"
+          />
+        </div>
+        <div tw="mb-4">
+          <Card
+            title="shorter waiting"
+            content={
+              time.shortest > 0.1
+                ? pluralize(time.shortest, 'week')
+                : 'less than 1 week'
+            }
+            variant="skyBlue"
+            footer="Based on our applications history"
+          />
+        </div>
+      </section>
       <ApplicantList applications={values} />
     </S.Container>
   )

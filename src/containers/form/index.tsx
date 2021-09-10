@@ -142,7 +142,7 @@ const Fields = () => {
               </div>
             </div>
           </div>
-          <div tw="px-4 py-3 bg-gray-50 text-right sm:px-6 space-x-4">
+          <div tw="px-4  bg-gray-50 text-right">
             <Button variant="skyBlue" type="submit">
               Save
             </Button>
