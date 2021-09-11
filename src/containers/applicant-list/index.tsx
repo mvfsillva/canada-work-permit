@@ -2,10 +2,13 @@ import tw from 'twin.macro'
 import { useRouter } from 'next/router'
 import { useCopyToClipboard } from 'react-use'
 import { useList } from 'react-firebase-hooks/database'
+import { toast } from 'react-toastify'
+
 import { Button } from 'components'
 import { pluralize, generateApprovedList } from 'helpers'
 import { firebase } from 'services'
 import { Box } from 'layout'
+
 import { TableHead, TableItem } from './table-partials'
 
 const Section = tw.section`py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8`
@@ -40,13 +43,19 @@ export default function ApplicantList() {
         <Button
           label="Copy approved list"
           variant="skyBlue"
-          onClick={() => copyToClipboard(shareCompleteList)}
+          onClick={() => {
+            copyToClipboard(shareCompleteList)
+            toast.info('Copied approved list')
+          }}
         />
 
         <Button
           label="Copy approved Noc List"
           variant="aqua"
-          onClick={() => copyToClipboard(shareNocList)}
+          onClick={() => {
+            copyToClipboard(shareNocList)
+            toast.info('Copied NOC approved list')
+          }}
         />
       </ButtonContainer>
       <Section>
