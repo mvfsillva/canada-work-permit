@@ -12,7 +12,12 @@ const App = ({ Component, pageProps }: AppProps) => (
   <ThemeProvider theme={theme}>
     <I18nextProvider i18n={i18n}>
       <Head>
+        <title>Brazilians Work Permit Process Time</title>
         <meta name="theme-color" content="#EE5253" />
+        <meta
+          name="description"
+          content="A simple project to follow Brazilians work permit process time"
+        />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -30,7 +35,7 @@ const App = ({ Component, pageProps }: AppProps) => (
           sizes="16x16"
           href="/favicon-16x16.png"
         />
-        <link rel="manifest" href="/manifest" />
+        <link rel="manifest" href="/manifest.json" />
       </Head>
       <GlobalStyle />
       <Component {...pageProps} />
