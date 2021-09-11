@@ -36,13 +36,12 @@ export const firebaseCreate = (person) => {
 
 export const firebaseUpdate = (id, data) => {
   const applicantRef = firebase.ref(`/applications/${id}`)
-  console.log({ data })
   const payload = {
     ...data,
     status:
       data.visa_response_date && data.status === 'awaiting'
         ? 'approved'
-        : data.status.value
+        : data.status.value || data.status
   }
 
   applicantRef.update(payload)
