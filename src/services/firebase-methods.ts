@@ -4,7 +4,7 @@ import { convertStringToDate } from 'helpers'
 
 const dbRef = firebase.ref('/applications')
 
-export const create = (person) => {
+export const firebaseCreate = (person) => {
   const finalDate = person.visa_response_date
     ? convertStringToDate(person.visa_response_date)
     : new Date()
@@ -23,8 +23,8 @@ export const create = (person) => {
     application_date: person.application_date,
     application_year: person.application_date.split('-')[0],
     category: person.category.value,
-    date_processing_week: date_processing_week,
-    name: person.name || '',
+    date_processing_week,
+    name: person.name,
     noc: person.noc,
     status,
     visa_response_date: person.visa_response_date || '',
@@ -33,5 +33,19 @@ export const create = (person) => {
 
   dbRef.push(data)
 }
-export const update = (key, value) => dbRef.child(key).update(value)
+
+export const firebaseUpdate = (id, data) => {
+  const applicantRef = firebase.ref(`/applications/${id}`)
+  console.log({ data })
+  const payload = {
+    ...data,
+    status:
+      data.visa_response_date && data.status === 'awaiting'
+        ? 'approved'
+        : data.status.value
+  }
+
+  applicantRef.update(payload)
+}
+
 export const remove = (key) => dbRef.child(key).remove()
