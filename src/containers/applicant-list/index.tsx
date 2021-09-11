@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useCopyToClipboard } from 'react-use'
 import { useList } from 'react-firebase-hooks/database'
 import { Button } from 'components'
-import { pluralize } from 'helpers'
+import { pluralize, generateApprovedList } from 'helpers'
 import { firebase } from 'services'
 import { Box } from 'layout'
 import { TableHead, TableItem } from './table-partials'
@@ -18,38 +18,15 @@ export default function ApplicantList() {
   )
 
   const [, copyToClipboard] = useCopyToClipboard()
+  const [shareCompleteList, shareNocList] = generateApprovedList(applications)
 
   if (isLoading) return <Box>Loading...</Box>
   if (error) return <Box>An error has occurred</Box>
 
-  let approvedList = ''
-  let approvedNocList = ''
-
-  applications.forEach((item) => {
-    const dateProcessingWeek =
-      +item.val().date_processing_week > 0
-        ? pluralize(+item.val().date_processing_week, 'week')
-        : 'less than 1 week'
-
-    if (item.val().status === 'approved') {
-      approvedList += `${item.val().name} | ${item.val().noc} | ${
-        item.val().application_date
-      } | ${item.val().visa_type} | ${item.val().category} | ${
-        item.val().visa_response_date
-      } | ${dateProcessingWeek}\n`
-    }
-
-    if (
-      item.val().status === 'approved' &&
-      !approvedNocList
-        .replaceAll(' ✅', '')
-        .trim()
-        .split('\n')
-        .includes(`${item.val().noc}`)
-    ) {
-      approvedNocList += `${item.val().noc} ✅ \n`
-    }
-  })
+  applications.sort(
+    (a, b) =>
+      +new Date(b.val().application_date) - +new Date(a.val().application_date)
+  )
 
   return (
     <div tw="flex flex-col">
@@ -63,13 +40,13 @@ export default function ApplicantList() {
         <Button
           label="Copy approved list"
           variant="skyBlue"
-          onClick={() => copyToClipboard(approvedList)}
+          onClick={() => copyToClipboard(shareCompleteList)}
         />
 
         <Button
           label="Copy approved Noc List"
           variant="aqua"
-          onClick={() => copyToClipboard(approvedNocList)}
+          onClick={() => copyToClipboard(shareNocList)}
         />
       </ButtonContainer>
       <Section>
