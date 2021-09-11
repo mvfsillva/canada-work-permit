@@ -8,7 +8,7 @@ export type VariantTypes =
   | 'black'
   | 'aqua'
 type Props = {
-  children: React.ReactNode
+  label: React.ReactNode
   onClick?: () => void
   type?: 'button' | 'submit'
   disabled?: boolean
@@ -16,7 +16,7 @@ type Props = {
 }
 
 const Button: React.FC<Props> = ({
-  children,
+  label,
   variant,
   disabled = false,
   type = 'button',
@@ -29,7 +29,7 @@ const Button: React.FC<Props> = ({
     type={type}
     disabled={disabled}
   >
-    {children}
+    {label}
   </S.ButtonWrapper>
 )
 
