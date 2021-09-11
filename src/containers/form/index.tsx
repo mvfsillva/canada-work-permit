@@ -1,10 +1,17 @@
 import tw from 'twin.macro'
+import { useEffect } from 'react'
 import { useFormContext, Controller } from 'react-hook-form'
 import { DateField, Input, Select, Button } from 'components'
 import { useRouter } from 'next/router'
-import type { VisaTypes, CategoryTypes, StatusTypes } from 'types'
+import type {
+  VisaTypes,
+  CategoryTypes,
+  StatusTypes,
+  ApplicationType
+} from 'types'
 
 const Label = tw.label`block text-sm font-medium text-gray-700 capitalize mb-2`
+const Block = tw.div`col-span-6 sm:col-span-3`
 
 const statusOptions = [
   { value: 'awaiting', label: 'Awaiting' },
@@ -27,137 +34,128 @@ const visaTypeOptions = [
   { value: 'GTS, OWP, VISITOR', label: 'GTS, OWP, VISITOR' }
 ] as unknown as Record<string, VisaTypes>[]
 
-const Fields = () => {
+const Fields = ({ values }: { values?: ApplicationType }) => {
   const router = useRouter()
-  const { setValue, register, getValues, control, reset } = useFormContext()
+  const { setValue, register, control, reset } = useFormContext()
+
+  useEffect(() => {
+    if (values) {
+      Object.keys(values).forEach((key) => {
+        setValue(key, values[key])
+      })
+    }
+  }, [setValue, values])
 
   return (
-    <section tw="md:grid md:grid-cols-2 md:gap-6 md:mb-0 sm:mb-5">
-      <div tw="mt-5 md:mt-0 md:col-span-2">
-        <div tw="shadow-lg overflow-hidden sm:rounded-md">
-          <div tw="px-4 py-5 bg-white sm:p-6">
-            <div tw="grid grid-cols-6 gap-6">
-              <div tw="col-span-6 sm:col-span-3">
-                <Label>Name (You do not need to add your last name)</Label>
-                <Input
-                  name="name"
-                  placeholder="e.g: Drake"
-                  {...register('name')}
-                />
-              </div>
-
-              <div tw="col-span-6 sm:col-span-3">
-                <Label>NOC</Label>
-                <Input
-                  name="noc"
-                  placeholder="e.g: 2175"
-                  {...register('noc')}
-                />
-              </div>
-
-              <div tw="col-span-6 sm:col-span-3">
-                <Label>Application Date</Label>
-                <DateField
-                  name="application_date"
-                  value={getValues('application_date')}
-                  onChange={({ target: { value } }) =>
-                    setValue('application_date', value)
-                  }
-                  {...register('application_date')}
-                />
-              </div>
-              <div tw="col-span-6 sm:col-span-3">
-                <Label>Visa Response Date</Label>
-                <DateField
-                  name="visa_response_date"
-                  value={getValues('visa_response_date')}
-                  onChange={({ target: { value } }) =>
-                    setValue('visa_response_date', value)
-                  }
-                  {...register('visa_response_date')}
-                />
-              </div>
-
-              <div tw="col-span-6 sm:col-span-3">
-                <Label>Application Category (LMIA | GTS | LMIA EXEMPT)</Label>
-                <Controller
-                  name="category"
-                  control={control}
-                  {...register('category')}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      value={categoryOptions.find(
-                        ({ value }) => value === field.value
-                      )}
-                      onChange={({ target: { value } }) =>
-                        setValue('category', value)
-                      }
-                      options={categoryOptions}
-                    />
-                  )}
-                />
-              </div>
-
-              <div tw="col-span-6 sm:col-span-3">
-                <Label>
-                  Application Status (Awaiting, Approved | Not Approved)
-                </Label>
-                <Controller
-                  name="status"
-                  control={control}
-                  {...register('status')}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      value={statusOptions.find(
-                        ({ value }) => value === field.value
-                      )}
-                      onChange={({ target: { value } }) =>
-                        setValue('status', value)
-                      }
-                      options={statusOptions}
-                    />
-                  )}
-                />
-              </div>
-              <div tw="col-span-6 sm:col-span-3">
-                <Label>Visa Type</Label>
-                <Controller
-                  name="visa_type"
-                  control={control}
-                  {...register('visa_type')}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      value={visaTypeOptions.find(
-                        ({ value }) => value === field.value
-                      )}
-                      onChange={({ target: { value } }) =>
-                        setValue('visa_type', value)
-                      }
-                      options={visaTypeOptions}
-                    />
-                  )}
-                />
-              </div>
-            </div>
-          </div>
-          <div tw="md:grid md:grid-cols-2 md:gap-6 p-4 sm:w-full md:w-5/12">
-            <Button variant="skyBlue" type="submit">
-              Save
-            </Button>
-            <Button
-              variant="primary"
-              onClick={() => {
-                reset()
-                router.back()
-              }}
-            >
-              Cancel
-            </Button>
-          </div>
-        </div>
+    <section tw="shadow-lg overflow-hidden sm:rounded-md">
+      <div tw="grid grid-cols-6 gap-6 px-4 py-5 sm:p-6">
+        <Block>
+          <Label>Name (You do not need to add your last name)</Label>
+          <Input name="name" placeholder="e.g: Drake" {...register('name')} />
+        </Block>
+        <Block>
+          <Label>NOC</Label>
+          <Input name="noc" placeholder="e.g: 2175" {...register('noc')} />
+        </Block>
+        <Block>
+          <Label>Application Date</Label>
+          <Controller
+            name="application_date"
+            control={control}
+            {...register('application_date')}
+            render={({ field }) => (
+              <DateField
+                value={field.value}
+                onChange={({ target: { value } }) =>
+                  setValue('application_date', value)
+                }
+              />
+            )}
+          />
+        </Block>
+        <Block>
+          <Label>Visa Response Date</Label>
+          <Controller
+            name="visa_response_date"
+            control={control}
+            {...register('visa_response_date')}
+            render={({ field }) => (
+              <DateField
+                value={field.value}
+                onChange={({ target: { value } }) =>
+                  setValue('visa_response_date', value)
+                }
+              />
+            )}
+          />
+        </Block>
+        <Block>
+          <Label>Application Category (LMIA | GTS | LMIA EXEMPT)</Label>
+          <Controller
+            name="category"
+            control={control}
+            {...register('category')}
+            render={({ field }) => (
+              <Select
+                {...field}
+                value={categoryOptions.find(
+                  ({ value }) => value === field.value
+                )}
+                onChange={({ target: { value } }) =>
+                  setValue('category', value)
+                }
+                options={categoryOptions}
+              />
+            )}
+          />
+        </Block>
+        <Block>
+          <Label>Application Status (Awaiting, Approved | Not Approved)</Label>
+          <Controller
+            name="status"
+            control={control}
+            {...register('status')}
+            render={({ field }) => (
+              <Select
+                {...field}
+                value={statusOptions.find(({ value }) => value === field.value)}
+                onChange={({ target: { value } }) => setValue('status', value)}
+                options={statusOptions}
+              />
+            )}
+          />
+        </Block>
+        <Block>
+          <Label>Visa Type</Label>
+          <Controller
+            name="visa_type"
+            control={control}
+            {...register('visa_type')}
+            render={({ field }) => (
+              <Select
+                {...field}
+                value={visaTypeOptions.find(
+                  ({ value }) => value === field.value
+                )}
+                onChange={({ target: { value } }) =>
+                  setValue('visa_type', value)
+                }
+                options={visaTypeOptions}
+              />
+            )}
+          />
+        </Block>
+      </div>
+      <div tw="md:grid md:grid-cols-2 md:gap-6 p-4 sm:w-full md:w-5/12">
+        <Button label="Save" variant="skyBlue" type="submit" />
+        <Button
+          label="cancel"
+          variant="primary"
+          onClick={() => {
+            reset()
+            router.push('/')
+          }}
+        />
       </div>
     </section>
   )

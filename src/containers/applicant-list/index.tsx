@@ -1,13 +1,15 @@
-import 'twin.macro'
+import tw from 'twin.macro'
 import { useRouter } from 'next/router'
 import { useCopyToClipboard } from 'react-use'
-import Link from 'next/link'
 import { useList } from 'react-firebase-hooks/database'
 import { Button } from 'components'
 import { pluralize } from 'helpers'
 import { firebase } from 'services'
 import { Box } from 'layout'
 import { TableHead, TableItem } from './table-partials'
+
+const Section = tw.section`py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8`
+const ButtonContainer = tw.div`sm:mt-0 md:grid md:grid-cols-3 md:gap-6 mb-4 sm:w-full lg:w-6/12`
 
 export default function ApplicantList() {
   const router = useRouter()
@@ -51,18 +53,26 @@ export default function ApplicantList() {
 
   return (
     <div tw="flex flex-col">
-      <div tw="sm:mt-0 md:grid md:grid-cols-3 md:gap-6 mb-4 sm:w-full lg:w-6/12">
-        <Button variant="black" onClick={() => router.push('/applicant/new')}>
-          New Applicant
-        </Button>
-        <Button variant="skyBlue" onClick={() => copyToClipboard(approvedList)}>
-          Copy approved list
-        </Button>
-        <Button variant="aqua" onClick={() => copyToClipboard(approvedNocList)}>
-          Copy approved Noc List
-        </Button>
-      </div>
-      <div tw="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <ButtonContainer>
+        <Button
+          label="New Applicant"
+          variant="black"
+          onClick={() => router.push('/applicant/new')}
+        />
+
+        <Button
+          label="Copy approved list"
+          variant="skyBlue"
+          onClick={() => copyToClipboard(approvedList)}
+        />
+
+        <Button
+          label="Copy approved Noc List"
+          variant="aqua"
+          onClick={() => copyToClipboard(approvedNocList)}
+        />
+      </ButtonContainer>
+      <Section>
         <table tw="min-w-full divide-y divide-gray-200">
           <TableHead />
           <tbody tw="bg-white divide-y divide-gray-200">
@@ -91,7 +101,7 @@ export default function ApplicantList() {
             ))}
           </tbody>
         </table>
-      </div>
+      </Section>
     </div>
   )
 }
