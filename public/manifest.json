@@ -10,7 +10,8 @@
     "sizes": "512x512",
     "type": "image/png"
   }],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  "background_color": "#FFFFFF",
+  "theme_color": "#EE5253",
+  "display": "fullscreen",
+  "start_url": "/"
 }
