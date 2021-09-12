@@ -25,7 +25,7 @@ function ApplicantList() {
   const [applications, isLoading, error] = useList(
     firebase.ref('/applications')
   )
-  const [filter, setFilter] = useState<FilterTypes | undefined>()
+  const [filter, setFilter] = useState<FilterTypes | undefined>({})
   const [data, setData] = useState([])
 
   const [, copyToClipboard] = useCopyToClipboard()
@@ -45,23 +45,30 @@ function ApplicantList() {
       +new Date(b.val().application_date) - +new Date(a.val().application_date)
   )
 
-  const filteredApplications = useMemo(
-    () =>
-      applications.filter((item) => {
-        if (filter?.status?.includes(item.val().status)) {
-          return item
+  const filteredApplications = useMemo(() => {
+    const filterKeys = Object.keys(filter)
+    if (!filterKeys?.length) return applications
+
+    return applications.filter((application) => {
+      return filterKeys.every((key) => {
+        if (!filter[key]?.length) {
+          return delete filter[key]
         }
-      }),
-    [applications, filter]
-  )
+
+        if (Array.isArray(application.val()[key])) {
+          return application
+            .val()
+            [key].some((item) => filter[key].includes(item))
+        }
+
+        return filter[key].includes(application.val()[key])
+      })
+    })
+  }, [applications, filter])
 
   const handleData = useCallback(() => {
-    if (filter && !!filteredApplications.length) {
-      return setData(filteredApplications)
-    }
-
-    return setData(applications)
-  }, [applications, filter, filteredApplications])
+    setData(filteredApplications)
+  }, [filteredApplications])
 
   useEffect(() => {
     handleData()
@@ -103,6 +110,11 @@ function ApplicantList() {
           <table tw="min-w-full divide-y divide-gray-200">
             <TableHead />
             <tbody tw="bg-white divide-y divide-gray-200">
+              {!data.length && (
+                <Box display="flex" justifyContent="center" alignItems="center">
+                  {Object.keys(filter)?.length ? 'Nothing found' : 'No data'}
+                </Box>
+              )}
               {data.map((person) => (
                 <tr
                   tw="cursor-pointer hover:bg-gray-100"
@@ -112,9 +124,9 @@ function ApplicantList() {
                   <TableItem
                     item={person.val().name}
                     subItem={person.val().noc}
+                    subItemLabel="NOC"
                   />
                   <TableItem item={person.val().application_date} />
-                  <TableItem item={person.val().application_year} />
                   <TableItem
                     item={
                       +person.val().date_processing_week > 0
@@ -122,6 +134,8 @@ function ApplicantList() {
                         : 'less than 1 week'
                     }
                   />
+                  <TableItem item={person.val()?.visa_type} />
+                  <TableItem item={person.val()?.category} />
                   <TableItem status={person.val().status} />
                   <TableItem item={person.val().visa_response_date} />
                 </tr>
