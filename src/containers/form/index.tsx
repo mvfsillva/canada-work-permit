@@ -32,7 +32,13 @@ const visaTypeOptions = [
   { value: 'WP, OWP, VISITOR', label: 'WP, OWP, VISITOR' }
 ] as unknown as Record<string, VisaTypes>[]
 
-const Fields = ({ values }: { values?: ApplicationType }) => {
+const Fields = ({
+  values,
+  remove
+}: {
+  values?: ApplicationType
+  remove: () => void
+}) => {
   const router = useRouter()
   const {
     setValue,
@@ -176,16 +182,19 @@ const Fields = ({ values }: { values?: ApplicationType }) => {
           />
         </FormField>
       </div>
-      <div tw="md:grid md:grid-cols-2 md:gap-6 p-4 sm:w-full md:w-5/12">
+      <div tw="md:grid md:grid-cols-3 md:gap-6 p-4 sm:w-full md:w-8/12">
         <Button label="Save" variant="skyBlue" type="submit" />
         <Button
           label="Cancel"
-          variant="primary"
+          variant="gray"
           onClick={() => {
             reset()
             router.push('/')
           }}
         />
+        {values && !!Object.keys(values).length && (
+          <Button label="Delete" variant="primary" onClick={remove} />
+        )}
       </div>
     </Section>
   )

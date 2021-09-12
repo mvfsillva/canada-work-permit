@@ -33,6 +33,14 @@ const NewApplicant = () => {
     return firebaseCreate(data)
   }
 
+  const handleRemove = () => {
+    toast.warn('Applicant removed successfully')
+    router.push('/')
+    methods.reset()
+
+    return firebase.ref(`/applications/${id}`).remove()
+  }
+
   return (
     <Template>
       <FormProvider {...methods}>
@@ -40,7 +48,7 @@ const NewApplicant = () => {
           tw="flex justify-center"
           onSubmit={methods.handleSubmit(onSubmit, handleError)}
         >
-          <Fields values={isEdit && values} />
+          <Fields values={isEdit && values} remove={handleRemove} />
         </form>
       </FormProvider>
     </Template>

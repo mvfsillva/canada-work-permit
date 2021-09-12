@@ -46,5 +46,3 @@ export const firebaseUpdate = (id, data) => {
 
   applicantRef.update(payload)
 }
-
-export const remove = (key) => dbRef.child(key).remove()
