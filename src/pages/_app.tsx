@@ -19,7 +19,7 @@ const App = ({ Component, pageProps }: AppProps) => (
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta
         name="description"
-        content="A simple project to follow Brazilians work permit process time"
+        content="An UNOFFICIAL project to follow Brazilians work permit process time"
       />
       <link rel="apple-touch-icon" href="/icon-512.png" />
       <link rel="shortcut icon" href="/icon-512.png" />
