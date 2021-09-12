@@ -10,7 +10,7 @@ import type { ApplicationType } from 'types'
 
 const NewApplicant = () => {
   const router = useRouter()
-  const methods = useForm()
+  const methods = useForm({ mode: 'all' })
   const { domain } = router.query
 
   const isEdit = domain && domain[0] === 'edit'
@@ -18,6 +18,8 @@ const NewApplicant = () => {
   const applicantRef = firebase.ref(`/applications/${id}`)
 
   const [values] = useObjectVal<ApplicationType>(applicantRef)
+
+  const handleError = (errors) => errors
 
   const onSubmit = (data) => {
     toast.success(`Applicant ${isEdit ? 'updated' : 'added'} successfully`)
@@ -34,7 +36,7 @@ const NewApplicant = () => {
   return (
     <Template>
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <form onSubmit={methods.handleSubmit(onSubmit, handleError)}>
           <Fields values={isEdit && values} />
         </form>
       </FormProvider>
