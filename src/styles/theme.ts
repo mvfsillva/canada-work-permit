@@ -34,7 +34,7 @@ const theme: any = {
     }
   },
   colors: {
-    primary: '#EE5253',
+    primary: '#AC1A1A',
     secondary: '#FF6B6B',
     blue: '#074B3A',
     aqua: '#026262',
