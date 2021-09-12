@@ -11,6 +11,7 @@ import ReactSelect, {
 type SelectProps = Omit<ReactSelectProps, 'onChange'> & {
   icon?: React.ReactElement
   borderless?: boolean
+  hasError?: boolean
   onChange?(event: { target: { name: string; value: OptionTypeBase } }): void
   theme: {
     border: Record<string, string>
@@ -24,8 +25,7 @@ type SelectProps = Omit<ReactSelectProps, 'onChange'> & {
 function Select(
   props: React.PropsWithChildren<SelectProps>
 ): React.ReactElement {
-  const { name, icon, options, borderless, onChange, theme, ...restProps } =
-    props
+  const { name, icon, options, onChange, theme, hasError, ...restProps } = props
   const [bodyElement, setBodyElement] = useState(undefined)
 
   useEffect(() => {
@@ -50,7 +50,9 @@ function Select(
       border: 0,
       flexWrap: 'nowrap',
       borderRadius: theme.border.radius,
-      boxShadow: borderless ?? `0 0 0 1px ${rgba(theme.colors.muted, 1)}`,
+      boxShadow: `0 0 0 1px ${
+        hasError ? rgba(theme.colors.primary, 1) : rgba(theme.colors.muted, 1)
+      }`,
       '&:hover': {
         boxShadow: `0 0 0 2px ${rgba(theme.colors.gray, 0.3)}`
       },

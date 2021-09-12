@@ -12,6 +12,7 @@ type DateFieldProps = {
   name?: string
   value: Date
   disabled?: boolean
+  hasError?: boolean
   onChange?(event: { target: { name: string; value: string } }): void
   theme: {
     colors: Record<string, string>
@@ -31,7 +32,7 @@ function parseDate(strDate: string, format: string) {
 }
 
 function DateField(props: DateFieldProps): React.ReactElement {
-  const { name, value, disabled, onChange } = props
+  const { name, value, hasError, disabled, onChange } = props
   const handleDayClick = (selectedDate: Date): void =>
     onChange({ target: { name, value: formatDate(selectedDate, DATE_FORMAT) } })
   const displayValueFactory = (): string | Date => value
@@ -40,6 +41,7 @@ function DateField(props: DateFieldProps): React.ReactElement {
     id: name,
     disabled,
     name,
+    hasError,
     readOnly: true,
     'data-testid': name
   }
@@ -47,14 +49,14 @@ function DateField(props: DateFieldProps): React.ReactElement {
   const dayPickerProps = {
     className: 'Selectable',
     numberOfMonths: 1,
-    onDayClick: handleDayClick
-    // modifiers: {
-    //   disabled: [
-    //     {
-    //       before: new Date()
-    //     }
-    //   ]
-    // }
+    onDayClick: handleDayClick,
+    modifiers: {
+      disabled: [
+        {
+          after: new Date()
+        }
+      ]
+    }
   }
 
   return (
