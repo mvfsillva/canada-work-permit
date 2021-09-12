@@ -104,8 +104,8 @@ function ApplicantList() {
           }}
         />
       </ButtonContainer>
+      <Filter handleFilter={handleFilter} />
       <Section>
-        <Filter handleFilter={handleFilter} />
         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
           <table tw="min-w-full divide-y divide-gray-200">
             <TableHead />
