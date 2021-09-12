@@ -11,7 +11,7 @@ const CustomStyles = createGlobalStyle`
     }
 
     body {
-      background-color: ${theme.colors.white};
+      background-color: ${theme.colors.gray};
       color: ${theme.colors.black};
       font-size: ${theme.font.sizes.base};
       ${tw`antialiased`}
