@@ -36,12 +36,12 @@ const theme: any = {
   colors: {
     primary: '#EE5253',
     secondary: '#FF6B6B',
-    blue: '#10ac84',
-    aqua: '#01a3a4',
+    blue: '#074B3A',
+    aqua: '#026262',
     white: '#FFFFFF',
     black: '#000000',
     gray: '#C8D6E5',
-    darkGray: '#8395A7',
+    darkGray: '#37424E',
     muted: '#E8EFF5'
   },
   spaces: {

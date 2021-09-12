@@ -11,7 +11,7 @@ import { Box } from 'layout'
 
 import { TableHead, TableItem } from './table-partials'
 
-const Section = tw.section`py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8`
+const Section = tw.section`py-2 align-middle inline-block min-w-full sm:px-6 lg:px-4 overflow-x-auto sm:-mx-6`
 const ButtonContainer = tw.div`sm:mt-0 md:grid md:grid-cols-3 md:gap-6 mb-4 sm:w-full lg:w-6/12`
 
 export default function ApplicantList() {
@@ -59,34 +59,36 @@ export default function ApplicantList() {
         />
       </ButtonContainer>
       <Section>
-        <table tw="min-w-full divide-y divide-gray-200">
-          <TableHead />
-          <tbody tw="bg-white divide-y divide-gray-200">
-            {applications.map((person) => (
-              <tr
-                tw="cursor-pointer hover:bg-gray-300"
-                key={person.key}
-                onClick={() => router.push(`/applicant/edit/${person.key}`)}
-              >
-                <TableItem
-                  item={person.val().name}
-                  subItem={person.val().noc}
-                />
-                <TableItem item={person.val().application_date} />
-                <TableItem item={person.val().application_year} />
-                <TableItem
-                  item={
-                    +person.val().date_processing_week > 0
-                      ? pluralize(+person.val().date_processing_week, 'week')
-                      : 'less than 1 week'
-                  }
-                />
-                <TableItem status={person.val().status} />
-                <TableItem item={person.val().visa_response_date} />
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <table tw="min-w-full divide-y divide-gray-200">
+            <TableHead />
+            <tbody tw="bg-white divide-y divide-gray-200">
+              {applications.map((person) => (
+                <tr
+                  tw="cursor-pointer hover:bg-gray-100"
+                  key={person.key}
+                  onClick={() => router.push(`/applicant/edit/${person.key}`)}
+                >
+                  <TableItem
+                    item={person.val().name}
+                    subItem={person.val().noc}
+                  />
+                  <TableItem item={person.val().application_date} />
+                  <TableItem item={person.val().application_year} />
+                  <TableItem
+                    item={
+                      +person.val().date_processing_week > 0
+                        ? pluralize(+person.val().date_processing_week, 'week')
+                        : 'less than 1 week'
+                    }
+                  />
+                  <TableItem status={person.val().status} />
+                  <TableItem item={person.val().visa_response_date} />
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </Section>
     </div>
   )

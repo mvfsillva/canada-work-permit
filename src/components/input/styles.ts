@@ -14,14 +14,5 @@ export const Field = styled.input<{
     border: 1px solid ${hasError ? theme.colors.primary : theme.colors.muted};
     outline: 0;
     padding: 0.6rem;
-
-    :hover {
-      box-shadow: 0 0 0 2px ${rgba(theme.colors.gray, 0.3)};
-    }
-
-    :focus,
-    :active {
-      box-shadow: 0 0 0 2px ${rgba(theme.colors.gray, 0.3)};
-    }
   `}
 `

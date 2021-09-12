@@ -59,15 +59,13 @@ export const Title = styled.h1`
 `
 
 export const Content = styled.p`
-  ${({ theme }) => css`
-    margin: 0.7rem auto;
-    font-weight: bold;
-    font-size: 1rem;
-  `}
+  margin: 0.7rem auto;
+  font-weight: bold;
+  font-size: 1rem;
 `
 
 export const Footer = styled.footer`
   ${({ theme }) => css`
-    color: ${theme.colors.darkGray};
+    color: ${theme.colors.black};
   `}
 `

@@ -11,7 +11,7 @@ type TableItemProps = {
   status?: StatusType | string
 }
 
-const Th = tw.th`px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider`
+const Th = tw.th`px-2 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider`
 const StatusSpan = styled.div<{ status?: StatusType | string }>(
   ({ status }) => [
     tw`px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize`,
@@ -40,8 +40,8 @@ export const TableItem = ({ item, subItem, status }: TableItemProps) => (
       {item && (
         <div tw="flex items-center">
           <div tw="ml-2">
-            <div tw="text-sm text-gray-900">{item}</div>
-            <div tw="text-sm text-gray-500">{subItem}</div>
+            <div tw="text-sm text-black">{item}</div>
+            <div tw="text-sm text-black">{subItem}</div>
           </div>
         </div>
       )}

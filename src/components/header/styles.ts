@@ -19,7 +19,7 @@ export const Wrapper = styled.header`
     }
 
     ${media.greaterThan('medium')`
-      text-align: left;
+      text-align: center;
       margin: auto;
     `}
   `}
