@@ -3,9 +3,7 @@ import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import { useObjectVal } from 'react-firebase-hooks/database'
 
-import { Header } from 'components'
-import { Container } from 'layout'
-import { Fields } from 'containers'
+import { Fields, Template } from 'containers'
 import { firebase, firebaseCreate, firebaseUpdate } from 'services'
 
 import type { ApplicationType } from 'types'
@@ -34,14 +32,13 @@ const NewApplicant = () => {
   }
 
   return (
-    <Container>
-      <Header />
+    <Template>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <Fields values={isEdit && values} />
         </form>
       </FormProvider>
-    </Container>
+    </Template>
   )
 }
 

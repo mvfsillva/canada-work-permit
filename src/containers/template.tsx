@@ -2,7 +2,7 @@ import { Header, Footer } from 'components'
 import { Container } from 'layout'
 
 type Props = {
-  children: React.ReactElement
+  children: React.ReactNode
 }
 
 const Template = ({ children }: Props) => (
