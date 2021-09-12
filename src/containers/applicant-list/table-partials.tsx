@@ -8,6 +8,7 @@ type StatusType = StatusTypes
 type TableItemProps = {
   item?: string | number
   subItem?: string | number
+  subItemLabel?: string | number
   status?: StatusType | string
 }
 
@@ -26,22 +27,30 @@ export const TableHead = () => (
     <tr>
       <Th>Name</Th>
       <Th>Application Date</Th>
-      <Th>Application Year</Th>
       <Th>Processing Time</Th>
+      <Th>Application Type</Th>
+      <Th>Application Category</Th>
       <Th>Status</Th>
       <Th>Date Processed</Th>
     </tr>
   </thead>
 )
 
-export const TableItem = ({ item, subItem, status }: TableItemProps) => (
+export const TableItem = ({
+  item,
+  subItem,
+  subItemLabel,
+  status
+}: TableItemProps) => (
   <>
     <td tw="px-3 py-4 whitespace-nowrap">
       {item && (
         <div tw="flex items-center">
           <div tw="ml-2">
             <div tw="text-sm text-black">{item}</div>
-            <div tw="text-sm text-black">{subItem}</div>
+            <div tw="text-sm text-black">
+              {subItem && `${subItemLabel}: ${subItem}`}
+            </div>
           </div>
         </div>
       )}
