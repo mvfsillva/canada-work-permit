@@ -12,10 +12,7 @@ const App = ({ Component, pageProps }: AppProps) => (
     <Head>
       <title>Brazilians Work Permit Process Time</title>
       <meta name="theme-color" content="#C8D6E5" />
-      <meta
-        name="apple-mobile-web-app-status-bar-style"
-        content="black-translucent"
-      />
+      <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
