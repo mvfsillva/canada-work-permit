@@ -26,12 +26,12 @@ export const Wrapper = styled.footer`
     `}
 
     a {
-      color: ${theme.colors.primary};
+      color: ${theme.colors.black};
       font-weight: bold;
       text-decoration: none;
       margin-left: 0.2rem;
       :hover {
-        color: ${theme.colors.secondary};
+        color: ${theme.colors.aqua};
       }
     }
   `}
@@ -39,12 +39,15 @@ export const Wrapper = styled.footer`
 
 export const Love = styled.span`
   ${({ theme }) => css`
+    :before {
+      content: '\2665';
+    }
     display: inline-block;
     position: relative;
     top: 0.2rem;
     font-size: ${theme.font.sizes.small};
-    color: ${theme.colors.secondary};
-    transform: scale(0.2);
+    color: ${theme.colors.black};
+    transform: scale(0.5);
     animation: ${pulse} 0.5s linear infinite alternate-reverse;
   `}
 `

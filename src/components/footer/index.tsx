@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <S.Wrapper>
       <p>
-        Made with <S.Love>♥</S.Love> by
+        Made by
         <a href="https://mvfsillva.dev" target="blank">
           Marcus Silva
         </a>
