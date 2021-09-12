@@ -66,14 +66,14 @@ const Home = () => {
         </div>
         <div tw="mb-4">
           <Card
-            title="Longest waiting"
+            title="Longest waiting time"
             content={`${pluralize(time.longest, 'week')}`}
             footer="Based on our applications history"
           />
         </div>
         <div tw="mb-4">
           <Card
-            title="shorter waiting"
+            title="Shortest waiting time"
             content={
               time.shortest > 0.1
                 ? pluralize(time.shortest, 'week')
