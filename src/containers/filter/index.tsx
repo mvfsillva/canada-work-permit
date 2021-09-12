@@ -49,7 +49,7 @@ const Filter = ({ handleFilter }: FilterProps) => {
           isClearable
           isSearchable
           isMulti
-          name="visaType"
+          name="visa_type"
           options={visaTypeOptions}
           onChange={handleFilter}
         />
