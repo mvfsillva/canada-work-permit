@@ -28,7 +28,7 @@ const generateApprovedList = (list) => {
         item.val().visa_response_date
       } | ${dateProcessingWeek}\n`
 
-      shareNocList += `${index} ${item.val().name} ${item.val().noc} ✅ \n`
+      shareNocList += `${index + 1} ${item.val().name} ${item.val().noc} ✅ \n`
     }
   })
 
