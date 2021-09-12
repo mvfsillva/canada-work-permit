@@ -21,7 +21,7 @@ export const Wrapper = styled.footer`
 
     ${media.greaterThan('medium')`
       font-size: ${theme.font.sizes.xxxsmall};
-      margin-top: ${theme.spaces.xxsmall};
+      margin-top: ${theme.spaces.small};
       padding-bottom: ${theme.spaces.xxsmall};
     `}
 
