@@ -1,71 +1,51 @@
-import tw from 'twin.macro'
-import { Select } from 'components'
+import 'twin.macro'
+import { Accordion } from 'components'
+import {
+  visaTypeOptions,
+  categoryOptions,
+  statusOptions,
+  yearOptions
+} from './options'
+
+import { FilterField } from './partials'
 
 type FilterProps = {
   handleFilter?(event: { target: { name: string; value: string } }): void
   handleClear?: () => void
 }
 
-const FilterGridItem = tw.div`my-px px-px w-full overflow-hidden sm:my-px sm:px-px md:my-1 md:px-1 md:w-1/3 lg:my-2
-lg:px-2 lg:w-1/6 xl:my-2 xl:px-2 xl:w-1/6 pb-2`
-const Label = tw.label`block text-sm font-medium text-gray-700 capitalize`
-
-const visaTypeOptions = [
-  { value: 'WP', label: 'WP' },
-  { value: 'OWP', label: 'OWP' },
-  { value: 'WP, OWP', label: 'WP, OWP' },
-  { value: 'WP, OWP, VISITOR', label: 'WP, OWP, VISITOR' }
-]
-
-const categoryOptions = [
-  { value: 'LMIA', label: 'LMIA' },
-  { value: 'LMIA EXEMPT', label: 'LMIA EXEMPT' },
-  { value: 'GTS', label: 'GTS' }
-]
-
-const statusOptions = [
-  { value: 'awaiting', label: 'Awaiting' },
-  { value: 'approved', label: 'Approved' },
-  { value: 'not approved', label: 'Not approved' }
-]
-
 const Filter = ({ handleFilter }: FilterProps) => {
   return (
-    <div tw="flex flex-wrap -mx-px overflow-hidden sm:-mx-px md:-mx-1 lg:-mx-2 xl:-mx-2 items-center">
-      <FilterGridItem>
-        <Label>Category</Label>
-        <Select
-          name="category"
-          isClearable
-          isSearchable
-          isMulti
-          options={categoryOptions}
-          onChange={handleFilter}
-        />
-      </FilterGridItem>
-      <FilterGridItem>
-        <Label>Visa Type</Label>
-        <Select
-          isClearable
-          isSearchable
-          isMulti
-          name="visa_type"
-          options={visaTypeOptions}
-          onChange={handleFilter}
-        />
-      </FilterGridItem>
-      <FilterGridItem>
-        <Label>Status</Label>
-        <Select
-          isClearable
-          isSearchable
-          isMulti
-          name="status"
-          options={statusOptions}
-          onChange={handleFilter}
-        />
-      </FilterGridItem>
-    </div>
+    <section tw="border-2 mb-4 p-4 border-gray-600 overflow-hidden">
+      <Accordion title="Filters">
+        <div tw="flex flex-wrap -mx-px overflow-hidden items-center">
+          <FilterField
+            name="category"
+            label="Category"
+            options={categoryOptions}
+            onChange={handleFilter}
+          />
+          <FilterField
+            name="visa_type"
+            label="Visa Type"
+            options={visaTypeOptions}
+            onChange={handleFilter}
+          />
+          <FilterField
+            name="status"
+            label="Status"
+            options={statusOptions}
+            onChange={handleFilter}
+          />
+          <FilterField
+            name="application_year"
+            label="Year"
+            options={yearOptions}
+            onChange={handleFilter}
+          />
+        </div>
+      </Accordion>
+    </section>
   )
 }
 
