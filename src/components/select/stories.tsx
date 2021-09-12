@@ -1,11 +1,4 @@
 import styled from 'styled-components'
-import {
-  IoLocationOutline,
-  IoRadioButtonOffOutline,
-  IoPersonOutline
-} from 'react-icons/io5'
-
-// Component
 import Select from '.'
 
 const Div = styled.div`
@@ -25,22 +18,16 @@ export function Default() {
   return <Select />
 }
 
-export function Borderless() {
-  return <Select icon={<IoPersonOutline />} borderless />
-}
-
 export function WithIcon() {
   return (
     <Div>
       <Select
-        icon={<IoRadioButtonOffOutline />}
         options={[
           { value: 'Toronto', label: 'Toronto' },
           { label: 'Vancouver', value: 'Vancouver' }
         ]}
       />
       <Select
-        icon={<IoLocationOutline />}
         options={[
           { value: 'Toronto', label: 'Toronto' },
           { label: 'Vancouver', value: 'Vancouver' }

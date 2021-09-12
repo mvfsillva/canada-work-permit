@@ -30,12 +30,6 @@ export const TableHead = () => (
       <Th>Processing Time</Th>
       <Th>Status</Th>
       <Th>Date Processed</Th>
-      {/* <th tw="relative px-3 py-3">
-        <span tw="sr-only">Details</span>
-      </th>
-      <th tw="relative px-3 py-3">
-        <span tw="sr-only">Edit</span>
-      </th> */}
     </tr>
   </thead>
 )
@@ -54,26 +48,4 @@ export const TableItem = ({ item, subItem, status }: TableItemProps) => (
       {status && <StatusSpan status={status}>{status}</StatusSpan>}
     </td>
   </>
-)
-
-export const TableItemEditButton = ({ handleEditApplication }: any) => (
-  <td tw="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-    <a
-      onClick={handleEditApplication}
-      tw="text-indigo-600 hover:text-indigo-900 cursor-pointer"
-    >
-      Edit
-    </a>
-  </td>
-)
-
-export const TableItemDetailsButton = () => (
-  <td tw="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-    <a
-      onClick={() => console.log('clicked')}
-      tw="text-indigo-600 hover:text-indigo-900 cursor-pointer"
-    >
-      Details
-    </a>
-  </td>
 )
