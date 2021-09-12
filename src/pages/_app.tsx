@@ -11,7 +11,7 @@ const App = ({ Component, pageProps }: AppProps) => (
   <ThemeProvider theme={theme}>
     <Head>
       <title>Brazilians Work Permit Process Time</title>
-      <meta name="theme-color" content="#EE5253" />
+      <meta name="theme-color" content="#C8D6E5" />
       <meta
         name="description"
         content="A simple project to follow Brazilians work permit process time"
