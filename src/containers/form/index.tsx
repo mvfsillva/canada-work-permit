@@ -1,19 +1,17 @@
-import tw from 'twin.macro'
+import 'twin.macro'
 import { useEffect } from 'react'
 import { useFormContext, Controller } from 'react-hook-form'
-import { DateField, Input, Select, Button } from 'components'
 import { useRouter } from 'next/router'
+
+import { DateField, Input, Select, Button, FormField } from 'components'
+import { Section } from 'layout'
+
 import type {
   VisaTypes,
   CategoryTypes,
   StatusTypes,
   ApplicationType
 } from 'types'
-
-const Label = tw.label`block text-sm font-medium text-gray-700 mb-2`
-const Error = tw.label`block text-sm font-medium text-red-700 h-2 mt-2`
-const Block = tw.div`col-span-6 sm:col-span-3`
-const Required = tw.span`text-red-600 ml-1 font-black`
 
 const statusOptions = [
   { value: 'awaiting', label: 'Awaiting' },
@@ -54,15 +52,10 @@ const Fields = ({ values }: { values?: ApplicationType }) => {
     }
   }, [setValue, values])
 
-  console.log(errors)
-
   return (
-    <section tw="shadow-lg overflow-hidden sm:rounded-md">
-      <div tw="grid grid-cols-6 gap-6 px-4 py-5 sm:p-6">
-        <Block>
-          <Label>
-            Name<Required>*</Required>
-          </Label>
+    <Section>
+      <div tw="grid grid-cols-6 gap-2 p-4">
+        <FormField label="Name" error={errors?.name} isRequired>
           <Input
             name="name"
             placeholder="e.g: Drake"
@@ -71,12 +64,8 @@ const Fields = ({ values }: { values?: ApplicationType }) => {
               required: true
             })}
           />
-          <Error>{errors?.name && 'Name is required'}</Error>
-        </Block>
-        <Block>
-          <Label>
-            NOC<Required>*</Required>
-          </Label>
+        </FormField>
+        <FormField label="NOC" error={errors?.noc} isRequired>
           <Input
             name="noc"
             placeholder="e.g: 2175"
@@ -85,12 +74,12 @@ const Fields = ({ values }: { values?: ApplicationType }) => {
               required: true
             })}
           />
-          <Error>{errors?.noc && 'Noc is required'}</Error>
-        </Block>
-        <Block>
-          <Label>
-            Application Date<Required>*</Required>
-          </Label>
+        </FormField>
+        <FormField
+          label="Application Date"
+          error={errors.application_date}
+          isRequired
+        >
           <Controller
             name="application_date"
             control={control}
@@ -109,12 +98,8 @@ const Fields = ({ values }: { values?: ApplicationType }) => {
               />
             )}
           />
-          <Error>
-            {errors?.application_date && 'Application Date is required'}
-          </Error>
-        </Block>
-        <Block>
-          <Label>Visa Response Date</Label>
+        </FormField>
+        <FormField label="Visa Response Date">
           <Controller
             name="visa_response_date"
             control={control}
@@ -128,12 +113,12 @@ const Fields = ({ values }: { values?: ApplicationType }) => {
               />
             )}
           />
-        </Block>
-        <Block>
-          <Label>
-            Application Category (LMIA | GTS | LMIA EXEMPT)
-            <Required>*</Required>
-          </Label>
+        </FormField>
+        <FormField
+          label="Application Category"
+          error={errors?.category}
+          isRequired
+        >
           <Controller
             name="category"
             control={control}
@@ -154,10 +139,8 @@ const Fields = ({ values }: { values?: ApplicationType }) => {
               />
             )}
           />
-          <Error>{errors?.category && 'Category is required'}</Error>
-        </Block>
-        <Block>
-          <Label>Application Status (Awaiting, Approved | Not Approved)</Label>
+        </FormField>
+        <FormField label="Application Status">
           <Controller
             name="status"
             control={control}
@@ -171,11 +154,8 @@ const Fields = ({ values }: { values?: ApplicationType }) => {
               />
             )}
           />
-        </Block>
-        <Block>
-          <Label>
-            Visa Type <Required>*</Required>
-          </Label>
+        </FormField>
+        <FormField label="Visa Type" error={errors.visa_type} isRequired>
           <Controller
             name="visa_type"
             control={control}
@@ -196,8 +176,7 @@ const Fields = ({ values }: { values?: ApplicationType }) => {
               />
             )}
           />
-          <Error>{errors?.visa_type && 'Visa Type is required'}</Error>
-        </Block>
+        </FormField>
       </div>
       <div tw="md:grid md:grid-cols-2 md:gap-6 p-4 sm:w-full md:w-5/12">
         <Button label="Save" variant="skyBlue" type="submit" />
@@ -210,7 +189,7 @@ const Fields = ({ values }: { values?: ApplicationType }) => {
           }}
         />
       </div>
-    </section>
+    </Section>
   )
 }
 

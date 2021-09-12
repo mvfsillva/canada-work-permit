@@ -1,3 +1,4 @@
+import 'twin.macro'
 import { useForm, FormProvider } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
@@ -5,7 +6,6 @@ import { useObjectVal } from 'react-firebase-hooks/database'
 
 import { Fields, Template } from 'containers'
 import { firebase, firebaseCreate, firebaseUpdate } from 'services'
-
 import type { ApplicationType } from 'types'
 
 const NewApplicant = () => {
@@ -36,7 +36,10 @@ const NewApplicant = () => {
   return (
     <Template>
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit, handleError)}>
+        <form
+          tw="flex justify-center"
+          onSubmit={methods.handleSubmit(onSubmit, handleError)}
+        >
           <Fields values={isEdit && values} />
         </form>
       </FormProvider>
