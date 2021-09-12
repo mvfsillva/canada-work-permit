@@ -16,7 +16,7 @@ const generateApprovedList = (list) => {
       +new Date(a.val().visa_response_date)
   )
 
-  list.forEach((item, index) => {
+  list.forEach((item) => {
     const dateProcessingWeek = renderDateProcessingWeek(
       item.val().date_processing_week
     )
@@ -28,7 +28,7 @@ const generateApprovedList = (list) => {
         item.val().visa_response_date
       } | ${dateProcessingWeek}\n`
 
-      shareNocList += `${index + 1} ${item.val().name} ${item.val().noc} ✅ \n`
+      shareNocList += `${item.val().name} ${item.val().noc} ✅ \n`
     }
   })
 
