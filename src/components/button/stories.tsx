@@ -16,16 +16,22 @@ export default {
 export function Default() {
   return (
     <Div>
-      <Button onClick={() => console.log('clicked')}>Click Me</Button>
-      <Button variant="primary" onClick={() => console.log('clicked')}>
-        Click Me
-      </Button>
-      <Button variant="secondary" onClick={() => console.log('clicked')}>
-        Click Me
-      </Button>
-      <Button variant="skyBlue" onClick={() => console.log('clicked')}>
-        Click Me
-      </Button>
+      <Button onClick={() => console.log('clicked')} label="Click Me" />
+      <Button
+        variant="primary"
+        onClick={() => console.log('clicked')}
+        label="Click Me"
+      />
+      <Button
+        variant="secondary"
+        onClick={() => console.log('clicked')}
+        label="Click Me"
+      />
+      <Button
+        variant="skyBlue"
+        onClick={() => console.log('clicked')}
+        label="Click Me"
+      />
     </Div>
   )
 }
