@@ -28,10 +28,8 @@ const categoryOptions = [
 const visaTypeOptions = [
   { value: 'WP', label: 'WP' },
   { value: 'OWP', label: 'OWP' },
-  { value: 'GTS, OWP', label: 'GTS, OWP' },
   { value: 'WP, OWP', label: 'WP, OWP' },
-  { value: 'WP, OWP, VISITOR', label: 'WP, OWP, VISITOR' },
-  { value: 'GTS, OWP, VISITOR', label: 'GTS, OWP, VISITOR' }
+  { value: 'WP, OWP, VISITOR', label: 'WP, OWP, VISITOR' }
 ] as unknown as Record<string, VisaTypes>[]
 
 const Fields = ({ values }: { values?: ApplicationType }) => {
