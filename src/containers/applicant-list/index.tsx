@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 
 import { Button } from 'components'
 import { Filter } from 'containers'
-import { pluralize, generateApprovedList } from 'helpers'
+import { generateApprovedList, differenceDateWeek } from 'helpers'
 import { firebase } from 'services'
 import { Box } from 'layout'
 
@@ -128,11 +128,10 @@ function ApplicantList() {
                   />
                   <TableItem item={person.val().application_date} />
                   <TableItem
-                    item={
-                      +person.val().date_processing_week > 0
-                        ? pluralize(+person.val().date_processing_week, 'week')
-                        : 'less than 1 week'
-                    }
+                    item={differenceDateWeek({
+                      start: person.val().application_date,
+                      final: person.val().visa_response_date
+                    })}
                   />
                   <TableItem item={person.val()?.visa_type} />
                   <TableItem item={person.val()?.category} />
