@@ -5,15 +5,7 @@ import { convertStringToDate } from 'helpers'
 const dbRef = firebase.ref('/applications')
 
 export const firebaseCreate = (person) => {
-  const finalDate = person.visa_response_date
-    ? convertStringToDate(person.visa_response_date)
-    : new Date()
-
   const startDate = convertStringToDate(person.application_date)
-  const date_processing_week = isToday(startDate)
-    ? 0
-    : differenceInWeeks(finalDate, startDate)
-
   const status: string =
     isToday(startDate) || !person?.status?.value
       ? 'awaiting'
@@ -23,7 +15,6 @@ export const firebaseCreate = (person) => {
     application_date: person.application_date,
     application_year: person.application_date.split('-')[0],
     category: person.category.value,
-    date_processing_week,
     name: person.name,
     noc: person.noc,
     status,
