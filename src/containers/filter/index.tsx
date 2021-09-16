@@ -17,7 +17,7 @@ type FilterProps = {
 
 const Filter = ({ handleFilter, handleSearch }: FilterProps) => {
   return (
-    <section tw="border-2 mb-4 p-4 sm:p-6 border-gray-600 overflow-hidden rounded-md">
+    <section tw="border-2 mb-4 border-gray-600 overflow-hidden rounded-md">
       <Accordion title="Filters">
         <div tw="my-px px-2 w-full overflow-hidden md:my-1 md:px-1 md:w-full lg:my-2 lg:px-2 lg:w-2/4 xl:my-2 xl:px-2 xl:w-1/2 pb-2">
           <Input

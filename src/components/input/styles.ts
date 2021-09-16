@@ -9,12 +9,10 @@ export const Field = styled.input<{
     width: 100%;
     min-height: 36px;
     background-color: ${disabled && theme.colors.muted};
-    border-radius: ${theme.border.radius};
     border: 1px solid ${hasError ? theme.colors.primary : theme.colors.black};
     color: ${theme.colors.black};
-    outline: 0;
     padding: 0.6rem;
-
+    outline-color: transparent;
     ::placeholder {
       color: ${theme.colors.darkGray};
     }

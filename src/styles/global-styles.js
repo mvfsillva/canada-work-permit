@@ -34,6 +34,8 @@ const CustomStyles = createGlobalStyle`
     select:focus,
     textarea {
       font-size: 16px;
+      border-radius: ${theme.border.radius};
+      -webkit-appearance: none;
     }
   `}
 `

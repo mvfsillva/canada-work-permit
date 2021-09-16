@@ -25,7 +25,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, children }) => {
   return (
     <div tw="flex flex-col overflow-hidden">
       <button
-        tw="appearance-none cursor-pointer focus:outline-none flex items-center justify-between"
+        tw="p-4 appearance-none cursor-pointer focus:outline-none flex items-center justify-between"
         onClick={toggleAccordion}
       >
         <p tw="inline-block text-black text-lg font-medium" className="light">
