@@ -1,5 +1,5 @@
 import 'twin.macro'
-import { Accordion } from 'components'
+import { Accordion, Input } from 'components'
 import {
   visaTypeOptions,
   categoryOptions,
@@ -12,9 +12,10 @@ import { FilterField } from './partials'
 type FilterProps = {
   handleFilter?(event: { target: { name: string; value: string } }): void
   handleClear?: () => void
+  handleSearch?({ target: { value } }): string
 }
 
-const Filter = ({ handleFilter }: FilterProps) => {
+const Filter = ({ handleFilter, handleSearch }: FilterProps) => {
   return (
     <section tw="border-2 mb-4 p-4 sm:p-6 border-gray-600 overflow-hidden rounded-md">
       <Accordion title="Filters">
@@ -42,6 +43,14 @@ const Filter = ({ handleFilter }: FilterProps) => {
             label="Year"
             options={yearOptions}
             onChange={handleFilter}
+          />
+        </div>
+        <div tw="flex flex-wrap overflow-hidden items-center my-px">
+          <Input
+            name="search"
+            type="search"
+            placeholder="Search by name or NOC"
+            onChange={handleSearch}
           />
         </div>
       </Accordion>
