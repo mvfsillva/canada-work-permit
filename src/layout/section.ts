@@ -7,10 +7,6 @@ export const Section = styled.section`
     border-radius: ${theme.border.radius};
     width: 100%;
 
-    ${media.greaterThan('medium')`
-      max-width: 80vw;
-    `}
-
     ${media.greaterThan('large')`
       max-width: 60vw;
     `}
