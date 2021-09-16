@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components'
-import { rgba } from 'polished'
 
 export const Field = styled.input<{
   disabled?: boolean
@@ -11,8 +10,13 @@ export const Field = styled.input<{
     min-height: 36px;
     background-color: ${disabled && theme.colors.muted};
     border-radius: ${theme.border.radius};
-    border: 1px solid ${hasError ? theme.colors.primary : theme.colors.muted};
+    border: 1px solid ${hasError ? theme.colors.primary : theme.colors.black};
+    color: ${theme.colors.black};
     outline: 0;
     padding: 0.6rem;
+
+    ::placeholder {
+      color: ${theme.colors.darkGray};
+    }
   `}
 `

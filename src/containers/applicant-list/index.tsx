@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 import { Button } from 'components'
 import { Filter } from 'containers'
 import { generateApprovedList, differenceDateWeek } from 'helpers'
+import { useDebounce } from 'hooks'
 import { firebase } from 'services'
 import { Box } from 'layout'
 
@@ -22,14 +23,21 @@ type FilterTypes = {
 
 function ApplicantList() {
   const router = useRouter()
+  const [, copyToClipboard] = useCopyToClipboard()
   const [applications, isLoading, error] = useList(
     firebase.ref('/applications')
   )
-  const [filter, setFilter] = useState<FilterTypes | undefined>({})
-  const [data, setData] = useState([])
 
-  const [, copyToClipboard] = useCopyToClipboard()
+  const [filter, setFilter] = useState<FilterTypes | undefined>({})
+  const [searchTerm, setSearchTerm] = useState('')
+  const [data, setData] = useState([])
   const [shareCompleteList, shareNocList] = generateApprovedList(applications)
+  const debouncedSearch = useDebounce(searchTerm, 1000)
+
+  applications.sort(
+    (a, b) =>
+      +new Date(b.val().application_date) - +new Date(a.val().application_date)
+  )
 
   const handleFilter = ({ target }) => {
     const { name, value: item } = target
@@ -40,20 +48,13 @@ function ApplicantList() {
     setFilter({ ...filter, [name]: values })
   }
 
-  applications.sort(
-    (a, b) =>
-      +new Date(b.val().application_date) - +new Date(a.val().application_date)
-  )
-
   const filteredApplications = useMemo(() => {
     const filterKeys = Object.keys(filter)
     if (!filterKeys?.length) return applications
 
     return applications.filter((application) => {
       return filterKeys.every((key) => {
-        if (!filter[key]?.length) {
-          return delete filter[key]
-        }
+        if (!filter[key]?.length) return delete filter[key]
 
         if (Array.isArray(application.val()[key])) {
           return application
@@ -66,9 +67,29 @@ function ApplicantList() {
     })
   }, [applications, filter])
 
+  const searchData = useMemo(() => {
+    if (debouncedSearch === '') return []
+
+    const foundItems = data.filter((item) => {
+      const value = Number.isInteger(Number(debouncedSearch))
+        ? item.val().noc
+        : item.val().name.toLowerCase()
+
+      if (value.includes((debouncedSearch as string).toLowerCase())) {
+        return item
+      }
+    })
+
+    return foundItems
+  }, [data, debouncedSearch])
+
   const handleData = useCallback(() => {
     setData(filteredApplications)
   }, [filteredApplications])
+
+  const applicationData = useMemo(() => {
+    return debouncedSearch ? searchData : filteredApplications
+  }, [debouncedSearch, searchData, filteredApplications])
 
   useEffect(() => {
     handleData()
@@ -104,18 +125,21 @@ function ApplicantList() {
           }}
         />
       </ButtonContainer>
-      <Filter handleFilter={handleFilter} />
+      <Filter
+        handleFilter={handleFilter}
+        handleSearch={({ target: { value } }) => setSearchTerm(value) as any}
+      />
       <Section>
         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
           <table tw="min-w-full divide-y divide-gray-200">
             <TableHead />
             <tbody tw="bg-white divide-y divide-gray-200">
-              {!data.length && (
+              {!applicationData.length && (
                 <Box display="flex" justifyContent="center" alignItems="center">
                   {Object.keys(filter)?.length ? 'Nothing found' : 'No data'}
                 </Box>
               )}
-              {data.map((person) => (
+              {applicationData.map((person) => (
                 <tr
                   tw="cursor-pointer hover:bg-gray-100"
                   key={person.key}

@@ -1,6 +1,6 @@
 import { cloneElement, useState, useEffect } from 'react'
 import { withTheme } from 'styled-components'
-import { rgba, darken } from 'polished'
+import { rgba } from 'polished'
 import ReactSelect, {
   Props as ReactSelectProps,
   StylesConfig,
@@ -33,9 +33,9 @@ function Select(
   }, [])
 
   const inputStyles = {
-    color: theme.colors.gray,
+    color: theme.colors.black,
     '&:focus, &:active': {
-      boxShadow: `0 0 0 2px ${rgba(theme.colors.muted, 1)}`
+      boxShadow: `0 0 0 2px ${rgba(theme.colors.darkGray, 1)}`
     }
   }
 
@@ -43,7 +43,7 @@ function Select(
     container: (styles) => ({
       ...styles,
       width: '100%',
-      color: theme.colors.gray
+      color: theme.colors.black
     }),
     control: (styles) => ({
       ...styles,
@@ -51,36 +51,36 @@ function Select(
       flexWrap: 'nowrap',
       borderRadius: theme.border.radius,
       boxShadow: `0 0 0 1px ${
-        hasError ? rgba(theme.colors.primary, 1) : rgba(theme.colors.muted, 1)
+        hasError ? rgba(theme.colors.primary, 1) : rgba(theme.colors.black, 1)
       }`,
       '&:hover': {
-        boxShadow: `0 0 0 2px ${rgba(theme.colors.gray, 0.3)}`
+        boxShadow: `0 0 0 2px ${rgba(theme.colors.darkGray, 0.3)}`
       },
       '&:focus, &:active': {
-        boxShadow: `0 0 0 2px ${rgba(theme.colors.gray, 0.3)}`
+        boxShadow: `0 0 0 2px ${rgba(theme.colors.darkGray, 0.3)}`
       }
     }),
     dropdownIndicator: (styles) => ({
       ...styles,
-      color: theme.colors.gray,
+      color: theme.colors.black,
       '&:hover': {
-        color: darken(0.2, theme.colors.gray)
+        color: theme.colors.darkGray
       }
     }),
     indicatorSeparator: () => ({ display: 'none' }),
     valueContainer: (styles) => ({
       ...styles,
-      // paddingLeft: theme.spaces.xsmall,
-      color: theme.colors.gray,
+      color: theme.colors.black,
       '&:hover': {
-        color: darken(0.2, theme.colors.gray)
+        color: theme.colors.darkGray
       }
     }),
     placeholder: (styles) => ({
       ...styles,
-      marginLeft: theme.spaces.xsmall,
+      // marginLeft: theme.spaces.xsmall,
       marginRight: theme.spaces.xsmall,
-      inputStyles
+      inputStyles,
+      color: theme.colors.darkGray
     }),
     input: (styles) => ({
       ...styles,
@@ -88,7 +88,7 @@ function Select(
     }),
     singleValue: (styles) => ({
       ...styles,
-      marginLeft: theme.spaces.xsmall,
+      // marginLeft: theme.spaces.xsmall,
       marginRight: theme.spaces.xsmall
     }),
     option: (styles, state) => ({
@@ -99,7 +99,7 @@ function Select(
       fontWeight: state.isSelected ? 'bolder' : 'normal',
       transition: theme.transition.ease,
       '&:hover': {
-        color: theme.colors.secondary,
+        color: theme.colors.primary,
         fontWeight: 'bolder'
       }
     }),
