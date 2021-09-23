@@ -46,6 +46,7 @@
     "react-use": "^17.2.4",
     "styled-components": "^5.3.1",
     "styled-media-query": "^2.1.2",
+    "sweetalert2": "^11.1.5",
     "swr": "^1.0.0"
   },
   "devDependencies": {
