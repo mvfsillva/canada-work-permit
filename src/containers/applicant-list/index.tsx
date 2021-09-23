@@ -31,7 +31,8 @@ function ApplicantList() {
   const [filter, setFilter] = useState<FilterTypes | undefined>({})
   const [searchTerm, setSearchTerm] = useState('')
   const [data, setData] = useState([])
-  const [shareCompleteList, shareNocList] = generateApprovedList(applications)
+  const [shareCompleteList, shareNocList, totalApproved] =
+    generateApprovedList(applications)
   const debouncedSearch = useDebounce(searchTerm, 1000)
 
   applications.sort(
@@ -111,7 +112,7 @@ function ApplicantList() {
           label="Copy approved list"
           variant="skyBlue"
           onClick={() => {
-            copyToClipboard(shareCompleteList)
+            copyToClipboard(shareCompleteList as string)
             toast.info('Copied approved list')
           }}
         />
@@ -120,7 +121,7 @@ function ApplicantList() {
           label="Copy approved Noc List"
           variant="aqua"
           onClick={() => {
-            copyToClipboard(shareNocList)
+            copyToClipboard(shareNocList as string)
             toast.info('Copied NOC approved list')
           }}
         />
@@ -131,6 +132,15 @@ function ApplicantList() {
       />
       <Section>
         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <div tw="flex place-content-around">
+            <h3 tw="text-2xl leading-6 font-medium text-gray-900 mb-4 space-x-4">
+              <span>Applicants total: {applications.length}</span>
+              <span>
+                Approved:{' '}
+                {((+totalApproved * 100) / applications.length).toFixed(2)}%
+              </span>
+            </h3>
+          </div>
           <table tw="min-w-full divide-y divide-gray-200">
             <TableHead />
             <tbody tw="bg-white divide-y divide-gray-200">
