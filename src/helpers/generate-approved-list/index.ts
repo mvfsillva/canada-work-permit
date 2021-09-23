@@ -1,14 +1,7 @@
-import { pluralize } from 'helpers'
-
-function renderDateProcessingWeek(date_processing_week) {
-  return date_processing_week > 0
-    ? pluralize(date_processing_week, 'week')
-    : 'less than 1 week'
-}
-
-const generateApprovedList = (list) => {
-  let shareCompleteList = ''
+const generateApprovedList = (list): Array<string | number> => {
+  let shareCompleteList = 'Lista de aprovados\n'
   let shareNocList = ''
+  let totalApproved = 0
 
   list.sort(
     (a, b) =>
@@ -17,22 +10,21 @@ const generateApprovedList = (list) => {
   )
 
   list.forEach((item) => {
-    const dateProcessingWeek = renderDateProcessingWeek(
-      item.val().date_processing_week
-    )
-
     if (item.val().status === 'approved') {
+      totalApproved += 1
       shareCompleteList += `${item.val().name} | ${item.val().noc} | ${
         item.val().application_date
       } | ${item.val().visa_type} | ${item.val().category} | ${
         item.val().visa_response_date
-      } | ${dateProcessingWeek}\n`
+      }\n`
 
-      shareNocList += `${item.val().name} ${item.val().noc} ✅ \n`
+      if (item.val().noc !== '0000') {
+        shareNocList += `${item.val().name} ${item.val().noc} ✅ \n`
+      }
     }
   })
 
-  return [shareCompleteList, shareNocList]
+  return [shareCompleteList, shareNocList, totalApproved]
 }
 
 export default generateApprovedList
