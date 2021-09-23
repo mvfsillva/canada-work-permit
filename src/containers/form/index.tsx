@@ -2,6 +2,7 @@ import 'twin.macro'
 import { useEffect } from 'react'
 import { useFormContext, Controller } from 'react-hook-form'
 import { useRouter } from 'next/router'
+import Swal from 'sweetalert2'
 
 import { DateField, Input, Select, Button, FormField } from 'components'
 import { Section } from 'layout'
@@ -47,6 +48,23 @@ const Fields = ({
     reset,
     formState: { errors }
   } = useFormContext()
+
+  const handleRemove = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#074B3A',
+      cancelButtonColor: '#AC1A1A',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Deleted!', 'Application has been deleted.', 'info')
+        remove()
+      }
+    })
+  }
 
   useEffect(() => {
     if (values) {
@@ -193,7 +211,7 @@ const Fields = ({
           }}
         />
         {values && !!Object.keys(values).length && (
-          <Button label="Delete" variant="primary" onClick={remove} />
+          <Button label="Delete" variant="primary" onClick={handleRemove} />
         )}
       </div>
     </Section>
