@@ -41,6 +41,10 @@ const Fields = ({
   remove: () => void
 }) => {
   const router = useRouter()
+
+  const { domain } = router.query
+  const isEdit = domain && domain[0] === 'edit'
+
   const {
     setValue,
     register,
@@ -121,21 +125,23 @@ const Fields = ({
             )}
           />
         </FormField>
-        <FormField label="Visa Response Date">
-          <Controller
-            name="visa_response_date"
-            control={control}
-            {...register('visa_response_date')}
-            render={({ field }) => (
-              <DateField
-                value={field.value}
-                onChange={({ target: { value } }) =>
-                  setValue('visa_response_date', value)
-                }
-              />
-            )}
-          />
-        </FormField>
+        {isEdit && (
+          <FormField label="Visa Response Date">
+            <Controller
+              name="visa_response_date"
+              control={control}
+              {...register('visa_response_date')}
+              render={({ field }) => (
+                <DateField
+                  value={field.value}
+                  onChange={({ target: { value } }) =>
+                    setValue('visa_response_date', value)
+                  }
+                />
+              )}
+            />
+          </FormField>
+        )}
         <FormField
           label="Application Category"
           error={errors?.category}
