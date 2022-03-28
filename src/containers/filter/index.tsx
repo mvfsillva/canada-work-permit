@@ -49,7 +49,7 @@ const Filter = ({ handleFilter, handleSearch }: FilterProps) => {
           <FilterField
             name="application_year"
             label="Year"
-            options={yearOptions}
+            options={yearOptions.reverse()}
             onChange={handleFilter}
           />
         </div>
