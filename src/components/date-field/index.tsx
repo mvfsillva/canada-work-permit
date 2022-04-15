@@ -21,7 +21,7 @@ type DateFieldProps = {
 
 const DATE_FORMAT = 'yyyy-MM-dd'
 
-function formatDate(date: Date, format: string): string {
+export function formatDate(date: Date, format: string = DATE_FORMAT): string {
   return dateFnsFormat(date, format)
 }
 
