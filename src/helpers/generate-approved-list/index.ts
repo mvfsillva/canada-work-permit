@@ -4,22 +4,16 @@ const generateApprovedList = (list): Array<string | number> => {
   let totalApproved = 0
 
   list.sort(
-    (a, b) =>
-      +new Date(b.val().visa_response_date) -
-      +new Date(a.val().visa_response_date)
+    (a, b) => +new Date(b.visa_response_date) - +new Date(a.visa_response_date)
   )
 
   list.forEach((item) => {
-    if (item.val().status === 'approved') {
+    if (item.status === 'approved') {
       totalApproved += 1
-      shareCompleteList += `${item.val().name} | ${item.val().noc} | ${
-        item.val().application_date
-      } | ${item.val().visa_type} | ${item.val().category} | ${
-        item.val().visa_response_date
-      }\n`
+      shareCompleteList += `${item.name} | ${item.noc} | ${item.application_date} | ${item.visa_type} | ${item.category} | ${item.visa_response_date}\n`
 
-      if (item.val().noc !== '0000') {
-        shareNocList += `${item.val().name} ${item.val().noc} ✅ \n`
+      if (item.noc !== '0000') {
+        shareNocList += `${item.name} ${item.noc} ✅ \n`
       }
     }
   })

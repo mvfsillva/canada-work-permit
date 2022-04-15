@@ -1,28 +1,23 @@
-import { useCallback, useEffect, useState } from 'react'
-import { useListVals as useListValues } from 'react-firebase-hooks/database'
-import useSWR from 'swr'
 import 'twin.macro'
-
-import { firebase } from 'services'
-import { pluralize } from 'helpers'
+import { useCallback, useEffect, useState } from 'react'
+import useSWR from 'swr'
 
 import { Card } from 'components'
-import { Box } from 'layout'
 import { Template, ApplicantList } from 'containers'
+import { Box } from 'layout'
+import { pluralize } from 'helpers'
+import { useSupabase } from 'services/useSupabase'
 
 import type { ApplicationType } from 'types'
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
 const NEXT_PUBLIC_IRCC_TIME = process.env.NEXT_PUBLIC_IRCC_TIME
-
 const ERROR_MESSAGE = 'An error has occurred'
 
 const Home = () => {
-  const [values, loading, error] = useListValues<ApplicationType>(
-    firebase.ref('/applications')
-  )
-
+  const { data, loading, error, get } =
+    useSupabase<ApplicationType>('applications')
   const [time, setTime] = useState<Record<string, number>>({
     shortest: 0,
     longest: 0
@@ -33,8 +28,9 @@ const Home = () => {
     fetcher
   )
 
+  // @TODO: Fix Longest/shortest waiting from new database;
   const getApplicationTime = useCallback(() => {
-    const result = values
+    const result = data
       .map((item) =>
         +item.date_processing_week > 0 ? +item.date_processing_week : 0.1
       )
@@ -44,11 +40,15 @@ const Home = () => {
     const shortest = Math.min(...result)
 
     setTime({ longest, shortest })
-  }, [values])
+  }, [data])
 
   useEffect(() => {
     getApplicationTime()
   }, [getApplicationTime])
+
+  useEffect(() => {
+    get()
+  }, [get])
 
   if (!ircc || loading) return <Box>Loading...</Box>
   if (error) return <Box>{ERROR_MESSAGE}</Box>
