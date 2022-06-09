@@ -1,5 +1,5 @@
 import 'twin.macro'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormContext, Controller } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
@@ -40,6 +40,7 @@ const Fields = ({
   values?: ApplicationType
   remove: () => void
 }) => {
+  const [isVisaResponseRequired, setIsVisaResponseRequired] = useState(false)
   const router = useRouter()
 
   const { domain } = router.query
@@ -126,13 +127,17 @@ const Fields = ({
           />
         </FormField>
         {isEdit && (
-          <FormField label="Visa Response Date">
+          <FormField
+            label="Visa Response Date"
+            error={errors.visa_response_date}
+            isRequired={isVisaResponseRequired}
+          >
             <Controller
               name="visa_response_date"
               control={control}
-              {...register('visa_response_date')}
               render={({ field }) => (
                 <DateField
+                  hasError={errors.visa_response_date}
                   value={field.value}
                   onChange={({ target: { value } }) =>
                     setValue('visa_response_date', value)
@@ -177,7 +182,15 @@ const Fields = ({
               <Select
                 {...field}
                 value={statusOptions.find(({ value }) => value === field.value)}
-                onChange={({ target: { value } }) => setValue('status', value)}
+                onChange={({ target: { value } }) => {
+                  setValue('status', value)
+                  if (value.label !== 'Awaiting') {
+                    setIsVisaResponseRequired(true)
+                    register('visa_response_date', {
+                      required: true
+                    })
+                  }
+                }}
                 options={statusOptions}
               />
             )}
