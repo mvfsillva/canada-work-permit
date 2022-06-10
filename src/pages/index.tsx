@@ -9,19 +9,24 @@ import { pluralize } from 'helpers'
 import { useSupabase } from 'services/useSupabase'
 
 import type { ApplicationType } from 'types'
+import { authenticate } from 'services/supabase-config'
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
 const NEXT_PUBLIC_IRCC_TIME = process.env.NEXT_PUBLIC_IRCC_TIME
 const ERROR_MESSAGE = 'An error has occurred'
 
-const Home = () => {
+const Home = ({ token }) => {
   const { data, loading, error, get } =
     useSupabase<ApplicationType>('applications')
   const [time, setTime] = useState<Record<string, number>>({
     shortest: 0,
     longest: 0
   })
+
+  useEffect(() => {
+    localStorage.setItem('supabaseToken', token)
+  }, [token])
 
   const { data: ircc, error: irccError } = useSWR(
     NEXT_PUBLIC_IRCC_TIME,
@@ -87,6 +92,16 @@ const Home = () => {
       <ApplicantList />
     </Template>
   )
+}
+
+export async function getServerSideProps() {
+  const token = await authenticate()
+
+  return {
+    props: {
+      token
+    }
+  }
 }
 
 export default Home
