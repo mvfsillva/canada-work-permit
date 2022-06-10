@@ -7,8 +7,13 @@ export const useSupabase = <SupabaseType>(table: string) => {
   const [data, setData] = useState<SupabaseType[]>([])
   const [values, setValues] = useState<SupabaseType>(null)
 
+  const setAuth = () =>
+    supabase.auth.setAuth(localStorage.getItem('supabaseToken'))
+
   const get = useCallback(async () => {
     try {
+      setAuth()
+
       const { body } = await supabase.from<SupabaseType>(table).select('*')
       setData(body)
     } catch (err) {
@@ -21,6 +26,8 @@ export const useSupabase = <SupabaseType>(table: string) => {
   const getOne = useCallback(
     async (id: SupabaseType[keyof SupabaseType]) => {
       try {
+        setAuth()
+
         const { body } = await supabase
           .from<SupabaseType>(table)
           .select('*')
@@ -44,6 +51,8 @@ export const useSupabase = <SupabaseType>(table: string) => {
       id?: SupabaseType[keyof SupabaseType]
     ) => {
       try {
+        setAuth()
+
         if (id) {
           await supabase
             .from<SupabaseType>(table)
@@ -64,6 +73,8 @@ export const useSupabase = <SupabaseType>(table: string) => {
   const remove = useCallback(
     async (id: SupabaseType[keyof SupabaseType]) => {
       try {
+        setAuth()
+
         await supabase.from<SupabaseType>(table).delete().match({ id: id })
       } catch (err) {
         setError(err)
