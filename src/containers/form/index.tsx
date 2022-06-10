@@ -53,23 +53,6 @@ const Fields = ({
     formState: { errors }
   } = useFormContext()
 
-  const handleRemove = () => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#074B3A',
-      cancelButtonColor: '#AC1A1A',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire('Deleted!', 'Application has been deleted.', 'info')
-        remove()
-      }
-    })
-  }
-
   useEffect(() => {
     if (values) {
       Object.keys(values).forEach((key) => {
@@ -216,9 +199,6 @@ const Fields = ({
             router.push('/')
           }}
         />
-        {values && !!Object.keys(values).length && (
-          <Button label="Delete" variant="primary" onClick={handleRemove} />
-        )}
       </div>
     </Section>
   )
