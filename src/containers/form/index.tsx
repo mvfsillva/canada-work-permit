@@ -126,7 +126,7 @@ const Fields = ({
             )}
           />
         </FormField>
-        {isEdit && (
+        {(isEdit || isVisaResponseRequired) && (
           <FormField
             label="Visa Response Date"
             error={errors.visa_response_date}
