@@ -35,10 +35,13 @@ function ApplicantList() {
     generateApprovedList(applications)
   const debouncedSearch = useDebounce(searchTerm, 1000)
 
-  applications.sort(
-    (a, b) =>
-      +new Date(b.val().application_date) - +new Date(a.val().application_date)
-  )
+  applications.sort((a, b) => {
+    let sortKey = 'application_date';
+
+    if (filter?.status?.includes('approved') || filter?.status?.includes('not approved')) sortKey = 'visa_response_date';
+
+    return +new Date(b.val()[sortKey]) - +new Date(a.val()[sortKey])
+  });
 
   const handleFilter = ({ target }) => {
     const { name, value: item } = target
