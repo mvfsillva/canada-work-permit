@@ -1,7 +1,10 @@
 ## Brazilians Work Permit Process Time to Canada
-> Disclaimer: This is an UNOFFICIAL project and not has a relationship with the Canadian government or any other public agency from Canada. The idea here is just to share the timeline so that we can measure and have a more realistic processing time scenario to work permit visas.
-This project is not for profit! I'm not responsible for long deadlines, or any problem in its application! 
-For more details look at the official website!
+> Disclaimer: This is an UNOFFICIAL project and is not affiliated with the Canadian government or any other public agency from Canada. The purpose of this project is to share a timeline to help measure and understand the processing time for work permit visas more realistically.
+This project is non-profit. I am not responsible for extended deadlines, or any issues with the application process.
+For more information, please refer to the official website.
+
+
+**This application was used for almost 3 years to track Brazilians work permit applications to Canada.**
 
 <p align="center">
   <img width="600px" height="auto" src="./canada_flag.svg" alt="Canada flag" />
